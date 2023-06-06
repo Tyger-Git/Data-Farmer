@@ -1,0 +1,70 @@
+﻿body {
+    display: flex;
+    justify-content: left;
+    padding-top: 20px;
+    padding-left: 20px;
+    margin: 0;
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+}
+
+#counters {
+    text-align: center;
+    padding: 20px;
+    border: 1px solid #000;
+    background-color: #fff;
+    width: 300px;
+}
+
+#bCounter {
+    font-size: 1em;
+    color: #333;
+}
+
+#cashCounter {
+    padding-top: 10px;
+    font-size: 1em;
+    color: #333;
+}
+
+#collect-btn {
+    margin-top: 10px;
+    width: 300px;
+    padding: 5px 10px;
+    font-size: 1em;
+    color: #fff;
+    background-color: #59626c;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#collect-btn:hover {
+    background-color: #333;
+}
+
+#collect-btn:active {
+    background-color: #333;
+}
+
+#cashout-btn {
+    margin-top: 10px;
+    width: 300px;
+    padding: 5px 10px;
+    font-size: 1em;
+    color: #fff;
+    background-color: #59626c;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#cashout-btn:hover {
+        background-color: #333;
+}
+
+#cashout-btn:active {
+        background-color: #333;
+}
