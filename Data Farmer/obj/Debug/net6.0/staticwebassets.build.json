@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "s0dyO6Trh+y6aU/aRQIi1xTqGd96/NdSYjL5BEnZSho=",
+  "Hash": "ltiLzK9xfrnY9Z1T+Iq3m5uSDgqeJUzQjmlFV4OYo+E=",
   "Source": "Data Farmer",
   "BasePath": "_content/Data Farmer",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "Data Farmer\\wwwroot",
       "Source": "Data Farmer",
-      "ContentRoot": "C:\\Users\\Tyler.Goodman\\source\\repos\\Data Farmer\\Data Farmer\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Tyler.Goodman\\Documents\\GitHub\\Data-Farmer\\Data Farmer\\wwwroot\\",
       "BasePath": "_content/Data Farmer",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\Tyler.Goodman\\source\\repos\\Data Farmer\\Data Farmer\\wwwroot\\game.html",
+      "Identity": "C:\\Users\\Tyler.Goodman\\Documents\\GitHub\\Data-Farmer\\Data Farmer\\wwwroot\\game.html",
       "SourceId": "Data Farmer",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Tyler.Goodman\\source\\repos\\Data Farmer\\Data Farmer\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Tyler.Goodman\\Documents\\GitHub\\Data-Farmer\\Data Farmer\\wwwroot\\",
       "BasePath": "_content/Data Farmer",
       "RelativePath": "game.html",
       "AssetKind": "All",
@@ -34,10 +34,10 @@
       "OriginalItemSpec": "wwwroot\\game.html"
     },
     {
-      "Identity": "C:\\Users\\Tyler.Goodman\\source\\repos\\Data Farmer\\Data Farmer\\wwwroot\\game.js",
+      "Identity": "C:\\Users\\Tyler.Goodman\\Documents\\GitHub\\Data-Farmer\\Data Farmer\\wwwroot\\game.js",
       "SourceId": "Data Farmer",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Tyler.Goodman\\source\\repos\\Data Farmer\\Data Farmer\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Tyler.Goodman\\Documents\\GitHub\\Data-Farmer\\Data Farmer\\wwwroot\\",
       "BasePath": "_content/Data Farmer",
       "RelativePath": "game.js",
       "AssetKind": "All",
@@ -51,10 +51,10 @@
       "OriginalItemSpec": "wwwroot\\game.js"
     },
     {
-      "Identity": "C:\\Users\\Tyler.Goodman\\source\\repos\\Data Farmer\\Data Farmer\\wwwroot\\login.html",
+      "Identity": "C:\\Users\\Tyler.Goodman\\Documents\\GitHub\\Data-Farmer\\Data Farmer\\wwwroot\\login.html",
       "SourceId": "Data Farmer",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Tyler.Goodman\\source\\repos\\Data Farmer\\Data Farmer\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Tyler.Goodman\\Documents\\GitHub\\Data-Farmer\\Data Farmer\\wwwroot\\",
       "BasePath": "_content/Data Farmer",
       "RelativePath": "login.html",
       "AssetKind": "All",
@@ -68,10 +68,10 @@
       "OriginalItemSpec": "wwwroot\\login.html"
     },
     {
-      "Identity": "C:\\Users\\Tyler.Goodman\\source\\repos\\Data Farmer\\Data Farmer\\wwwroot\\login.js",
+      "Identity": "C:\\Users\\Tyler.Goodman\\Documents\\GitHub\\Data-Farmer\\Data Farmer\\wwwroot\\login.js",
       "SourceId": "Data Farmer",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Tyler.Goodman\\source\\repos\\Data Farmer\\Data Farmer\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Tyler.Goodman\\Documents\\GitHub\\Data-Farmer\\Data Farmer\\wwwroot\\",
       "BasePath": "_content/Data Farmer",
       "RelativePath": "login.js",
       "AssetKind": "All",
@@ -85,10 +85,10 @@
       "OriginalItemSpec": "wwwroot\\login.js"
     },
     {
-      "Identity": "C:\\Users\\Tyler.Goodman\\source\\repos\\Data Farmer\\Data Farmer\\wwwroot\\style.css",
+      "Identity": "C:\\Users\\Tyler.Goodman\\Documents\\GitHub\\Data-Farmer\\Data Farmer\\wwwroot\\style.css",
       "SourceId": "Data Farmer",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Tyler.Goodman\\source\\repos\\Data Farmer\\Data Farmer\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Tyler.Goodman\\Documents\\GitHub\\Data-Farmer\\Data Farmer\\wwwroot\\",
       "BasePath": "_content/Data Farmer",
       "RelativePath": "style.css",
       "AssetKind": "All",
