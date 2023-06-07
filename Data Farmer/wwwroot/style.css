@@ -4,22 +4,22 @@
     padding-top: 20px;
     padding-left: 20px;
     margin: 0;
-    background-color: #f0f0f0;
+    background-color: #111317;
     font-family: Arial, sans-serif;
 }
 
 #counters {
+    background-color: #111317;
     text-align: center;
     padding: 10px;
-    border: 1px solid #000;
-    background-color: #fff;
+    border: 1px solid #59626c;
     width: 300px;
     height: 240px;
 }
 
 #bCounter {
     font-size: 2em;
-    color: #333;
+    color: #fff;
 }
 
 #cashCounter {
@@ -45,7 +45,7 @@
 }
 
 #collect-btn:active {
-    background-color: #333;
+    background-color: #808080;
 }
 
 #cashout-btn {
@@ -66,33 +66,76 @@
 }
 
 #cashout-btn:active {
-        background-color: #333;
+        background-color: #808080;
 }
 
-#cashOutRange {
-    margin-top: 40px;
-    width: 250px;
-    -webkit-appearance: none; /* Remove default appearance */
-    width: 100%; /* Full-width */
-    height: 15px; /* Specified height */
-    background: #d3d3d3; /* Grey background */
-    opacity: 0.7; /* Set transparency (for mouse-over interaction) */
-    -webkit-transition: .2s; /* 0.2 seconds transition on hover */
-    transition: opacity .2s;
+#autoClickers {
+    display: flex;
+    background-color: #111317;
+    text-align: center;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #59626c;
+    width: 300px;
+    height: 240px;
+    margin-left: 5px;
 }
 
-#cashOutRange::-webkit-slider-thumb { /*Safari*/
-    -webkit-appearance: none; /* Remove default appearance */
-    appearance: none;
-    width: 15px; /* Set a specific slider handle width */
-    height: 30px; /* Slider handle height */
-    background: #333; /* Grey background */
-    cursor: pointer; /* Cursor on hover */
+#dataFarmerText {
+    font-size: 1em;
+    color: #fff;
 }
 
-#cashOutRange::-moz-range-thumb { /* Firefox */
-    width: 25px; /* Set a specific slider handle width */
-    height: 25px; /* Slider handle height */
-    background: #d3d3d3; /* Grey background */
-    cursor: pointer; /* Cursor on hover */
+#buyDFarmer1-btn {
+    width: 50px;
+    height: 30px;
+    margin-left: 5px;
+    color: #fff;
+    background-color: #59626c;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+#buyDFarmer1-btn:hover {
+    background-color: #333;
+}
+#buyDFarmer1-btn:active {
+    background-color: #808080;
+}
+
+#buyDFarmer10-btn {
+    width: 50px;
+    height: 30px;
+    margin-left: 5px;
+    color: #fff;
+    background-color: #59626c;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+#buyDFarmer10-btn:hover {
+    background-color: #333;
+}
+#buyDFarmer10-btn:active {
+    background-color: #808080;
+}
+
+#buyDFarmer100-btn {
+    width: 50px;
+    height: 30px;
+    margin-left: 5px;
+    color: #fff;
+    background-color: #59626c;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+#buyDFarmer100-btn:hover {
+    background-color: #333;
+}
+#buyDFarmer100-btn:active {
+    background-color: #808080;
 }

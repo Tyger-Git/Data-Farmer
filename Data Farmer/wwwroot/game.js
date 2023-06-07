@@ -4,8 +4,9 @@
 // Initialize the game state
 let gameState = {
     clicks: 0,
-    cash: 0,
-    cashOutMulti: .15
+    cash: 100,
+    cashOutMulti: .0015,
+    dFarmers: 0
 };
 
 //Early Initializations
@@ -33,6 +34,19 @@ document.getElementById('cashout-btn').addEventListener('click', function () {
     output.innerHTML = formatCash(gameState.clicks * gameState.cashOutMulti);
 });
 
+// Data Farmers
+document.getElementById('buyDFarmer1-btn').addEventListener('click', function () {
+    gameState.dFarmers++;
+    document.getElementById('dFarmerTotal').innerText = gameState.dFarmers;
+});
+document.getElementById('buyDFarmer10-btn').addEventListener('click', function () {
+    gameState.dFarmers += 10;
+    document.getElementById('dFarmerTotal').innerText = gameState.dFarmers;
+});
+document.getElementById('buyDFarmer100-btn').addEventListener('click', function () {
+    gameState.dFarmers += 100;
+    document.getElementById('dFarmerTotal').innerText = gameState.dFarmers;
+});
 // Define the units and their thresholds
 const units = [
     { name: 'Bytes', limit: 1000 },
