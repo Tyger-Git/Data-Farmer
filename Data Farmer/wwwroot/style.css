@@ -10,7 +10,7 @@
 
 #counters {
     text-align: center;
-    padding: 20px;
+    padding: 10px;
     border: 1px solid #000;
     background-color: #fff;
     width: 300px;
@@ -18,18 +18,17 @@
 }
 
 #bCounter {
-    font-size: 1em;
+    font-size: 2em;
     color: #333;
 }
 
 #cashCounter {
-    padding-top: 10px;
-    font-size: 1em;
-    color: #333;
+    padding-top: 0px;
+    font-size: 1.5em;
+    color: #17811d;
 }
 
 #collect-btn {
-    margin-top: 10px;
     width: 300px;
     padding: 5px 10px;
     font-size: 1em;
@@ -73,20 +72,16 @@
 #cashOutRange {
     margin-top: 40px;
     width: 250px;
-}
-/*Style for the sliders*/
-input[type=range] {
     -webkit-appearance: none; /* Remove default appearance */
     width: 100%; /* Full-width */
     height: 15px; /* Specified height */
     background: #d3d3d3; /* Grey background */
-    outline: thin; /* Remove outline */
     opacity: 0.7; /* Set transparency (for mouse-over interaction) */
     -webkit-transition: .2s; /* 0.2 seconds transition on hover */
     transition: opacity .2s;
 }
 
-input[type=range]::-webkit-slider-thumb { /*Safari*/
+#cashOutRange::-webkit-slider-thumb { /*Safari*/
     -webkit-appearance: none; /* Remove default appearance */
     appearance: none;
     width: 15px; /* Set a specific slider handle width */
@@ -95,7 +90,7 @@ input[type=range]::-webkit-slider-thumb { /*Safari*/
     cursor: pointer; /* Cursor on hover */
 }
 
-input[type=range]::-moz-range-thumb { /* Firefox */
+#cashOutRange::-moz-range-thumb { /* Firefox */
     width: 25px; /* Set a specific slider handle width */
     height: 25px; /* Slider handle height */
     background: #d3d3d3; /* Grey background */

@@ -10,33 +10,28 @@ let gameState = {
 
 //Early Initializations
 let maxCashOut = formatCash(gameState.clicks * gameState.cashOutMulti);
+let output = document.getElementById("cashOutVal");
+output.innerHTML = maxCashOut;
 
 // Collect Button
 document.getElementById('collect-btn').addEventListener('click', function () {
     gameState.clicks++;
     // Update the counter display
     document.getElementById('bCounter').innerText = formatBytes(gameState.clicks);
+    // Update the Cash Out Value
+    output.innerHTML = formatCash(gameState.clicks * gameState.cashOutMulti);
 });
+
 // Cash Out Button
 document.getElementById('cashout-btn').addEventListener('click', function () {
-    gameState.cash = gameState.cash + (gameState.clicks * gameState.cashOutMulti);
+    let cashToAdd = (gameState.clicks * gameState.cashOutMulti);
+    gameState.cash = gameState.cash + cashToAdd;
     gameState.clicks = 0;
     // Update the counters
     document.getElementById('cashCounter').innerText = formatCash(gameState.cash);
     document.getElementById('bCounter').innerText = formatBytes(gameState.clicks);
+    output.innerHTML = formatCash(gameState.clicks * gameState.cashOutMulti);
 });
-
-//Slider for CashOut
-let slider = document.getElementById("cashOutRange");
-slider.max = maxCashOut;
-slider.value = maxCashOut; //Initial Value
-let output = document.getElementById("cashOutVal");
-//Display Default Slider Value
-output.innerHTML = slider.value;
-// Update the slider value (each time you drag the slider handle)
-slider.oninput = function () {
-    output.innerHTML = this.value;
-}
 
 // Define the units and their thresholds
 const units = [
