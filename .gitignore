@@ -400,3 +400,8 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+#Other Custom Ignores
+.vs/Data Farmer/DesignTimeBuild/.dtbcache.v2
+.vs/ProjectEvaluation/data farmer.metadata.v6.1
+.vs/ProjectEvaluation/data farmer.projects.v6.1
