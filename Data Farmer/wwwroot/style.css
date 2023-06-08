@@ -13,8 +13,18 @@
     text-align: center;
     padding: 10px;
     border: 1px solid #59626c;
-    width: 300px;
-    height: 260px;
+    width: 350px;
+    height: 320px;
+}
+
+#expText {
+    font-size: .8em;
+    color: #fff;
+    margin-top: 30px;
+}
+
+.exp-span {
+    margin-right: 20px; /* adjust as needed */
 }
 
 #farmGenerationText {
@@ -153,4 +163,12 @@ font-size: 1.2em;
 }
 #buyDFarmer100-btn:active {
     background-color: #808080;
+}
+
+.custom-progress {
+    height: 5px;
+}
+
+.custom-progress .progress-bar {
+    background-color: #03039b;
 }
