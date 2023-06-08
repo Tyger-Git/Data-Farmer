@@ -10,7 +10,7 @@
     <div id="counters">
         <p id="farmGenerationText">Farming <span id="autoGenText">0</span> bytes of data per second</p>
         <h2 id="bCounter">0 Bytes</h2>
-        <button id="collect-btn">Collect Data</button>
+        <button id="collect-btn">Farm 1 Byte</button>
         <button id="cashout-btn">Sell Data : <span id="cashOutVal"></span></button>
         <h3><span id="cashCounter">$ 100.00</span></h3>
         <p id="expText">
@@ -18,11 +18,17 @@
             Exp: <span class="exp-span" id="expCounter"></span>
         </p>
         <div id="expBarDiv" class="progress custom-progress">
-            <div id="expBar" class="progress-bar bg-primary progress-bar-striped progress-bar-animated" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+            <div id="expBar" class="progress-bar bg-primary progress-bar-striped progress-bar-animated" role="progressbar"></div>
         </div>
     </div>
+    <button id="toggleUpgradesPanelBtn">Upgrades</button>
+    <div id="upgradesPanel">
+        <!-- Place your upgrade buttons and text here -->
+    </div>
     <div id="dFarmers">
-        <p id="dataFarmerText">Data Farmers: <span id="dFarmerTotal">0</span></p>
+        <div class="vertical-align">
+            <p id="dataFarmerText">Freelance Farmer: <span id="dFarmerTotal">0</span></p>
+        </div>
         <button id="buyDFarmer1-btn">+1</button>
         <button id="buyDFarmer10-btn">+10</button>
         <button id="buyDFarmer100-btn">+100</button>

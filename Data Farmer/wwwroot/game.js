@@ -44,6 +44,19 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     // Buttons
     /* -------------------------------------------------------------------------------------------------------------------------------- */
+    // Upgrade Panel Button
+    let upgradesPanel = document.getElementById('upgradesPanel');
+    let toggleUpgradesPanelBtn = document.getElementById('toggleUpgradesPanelBtn');
+
+    toggleUpgradesPanelBtn.addEventListener('click', function () {
+        if (upgradesPanel.style.right === "0px") {
+            upgradesPanel.style.right = "-500px";
+            toggleUpgradesPanelBtn.style.right = "0px";
+        } else {
+            upgradesPanel.style.right = "0px";
+            toggleUpgradesPanelBtn.style.right = "500px";
+        }
+    });
     // Collect Button
     document.getElementById('collect-btn').addEventListener('click', function () {
         gameState.clicks++;
