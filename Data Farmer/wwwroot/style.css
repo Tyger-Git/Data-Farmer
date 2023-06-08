@@ -14,7 +14,17 @@
     padding: 10px;
     border: 1px solid #59626c;
     width: 300px;
-    height: 240px;
+    height: 260px;
+}
+
+#farmGenerationText {
+    font-size: .6em;
+    color: #fff;
+}
+
+#farmGeneration {
+    font-size: .6em;
+    color: #fff;
 }
 
 #bCounter {
@@ -69,20 +79,25 @@
         background-color: #808080;
 }
 
-#autoClickers {
+#dFarmers {
     display: flex;
     background-color: #111317;
     text-align: center;
-    align-items: center;
+    align-items: baseline;
     padding: 10px;
     border: 1px solid #59626c;
     width: 300px;
-    height: 240px;
+    height: 80px;
     margin-left: 5px;
 }
 
 #dataFarmerText {
-    font-size: 1em;
+    font-size: 1.2em;
+    color: #fff;
+}
+
+#dFarmerTotal {
+font-size: 1.2em;
     color: #fff;
 }
 
