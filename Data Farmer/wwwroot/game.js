@@ -7,39 +7,37 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     // Initialize the game state
     let gameState = {
-        clicks: 0,
+        bytes: 0,
         cash: 100,
         cashOutMulti: .0015,
         dFarmers: 0,
+        dFarmerSpeedLevel: 1,
+        dFarmerUpgradeLevel: 1,
         dFarmerTickIncrement: 1000,
         level: 1,
         exp: 0
     };
     // Early Initializations
     /* -------------------------------------------------------------------------------------------------------------------------------- */
-    let maxCashOut = formatCash(gameState.clicks * gameState.cashOutMulti);
-    let output = document.getElementById("cashOutVal");
-    output.innerHTML = maxCashOut;
+    let maxCashOut = formatCash(gameState.bytes * gameState.cashOutMulti);
     let autoGenPerSec = gameState.dFarmers / (gameState.dFarmerTickIncrement / 1000); // Per sec calc
-    let autoGenOutput = document.getElementById('autoGenText');
-    autoGenOutput.innerHTML = formatBytes(autoGenPerSec); // Set intial Auto Gen Text
-    let nextLevelReqExp = ((gameState.level * 100) * (gameState.level ^ 2));
-    let expOutput = document.getElementById('expCounter');
-    expOutput.innerHTML = formatExp(gameState.exp,nextLevelReqExp); // Update Exp Text
-    let levelTextRef = document.getElementById('levelText');
-    levelTextRef.innerHTML = `${gameState.level}`; // Update Level Text
-    let expBar = document.getElementById('expBar');
-    let progressPercentage = (gameState.exp / nextLevelReqExp) * 100; // Calc Progress Percentage
+    let nextLevelReqExp = ((gameState.level * 100) * (gameState.level ** 3));
+    let prevLevelReqExp = 0;
+    let currentLevelExp = gameState.exp - prevLevelReqExp;
+    let currentLevelReqExp = nextLevelReqExp - prevLevelReqExp;
+    let progressPercentage = (currentLevelExp / currentLevelReqExp) * 100; // Calc Progress Percentage
+
+    // Initial Function Calls
+    /* -------------------------------------------------------------------------------------------------------------------------------- */
+    updateTextElements();
 
     // Clock
     /* -------------------------------------------------------------------------------------------------------------------------------- */
     setInterval(function () {
-        gameState.clicks += gameState.dFarmers;
+        gameState.bytes += gameState.dFarmers;
         gameState.exp += gameState.dFarmers;
-        levelUpCheck(); // Check for level up
-        document.getElementById('bCounter').innerText = formatBytes(gameState.clicks);  // Update the counter display
-        output.innerHTML = formatCash(gameState.clicks * gameState.cashOutMulti);   // Update the Cash Out Value
-        expOutput.innerHTML = formatExp(gameState.exp, nextLevelReqExp); // Update Exp Text
+        levelUpCheck();
+        updateTextElements();
     }, gameState.dFarmerTickIncrement);
 
     // Buttons
@@ -59,60 +57,86 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
     // Collect Button
     document.getElementById('collect-btn').addEventListener('click', function () {
-        gameState.clicks++;
+        gameState.bytes++;
         gameState.exp++;
-        levelUpCheck(); // Check for level up
-        document.getElementById('bCounter').innerText = formatBytes(gameState.clicks);  // Update the counter display
-        output.innerHTML = formatCash(gameState.clicks * gameState.cashOutMulti);   // Update the Cash Out Value
-        expOutput.innerHTML = formatExp(gameState.exp, nextLevelReqExp); // Update Exp Text
+        levelUpCheck();
+        updateTextElements();
     });
 
     // Cash Out Button
     document.getElementById('cashout-btn').addEventListener('click', function () {
-        let cashToAdd = (gameState.clicks * gameState.cashOutMulti);
+        let cashToAdd = (gameState.bytes * gameState.cashOutMulti);
         gameState.cash = gameState.cash + cashToAdd;
-        gameState.clicks = 0;
-        document.getElementById('cashCounter').innerText = formatCash(gameState.cash);  // Update the Total Cash display
-        document.getElementById('bCounter').innerText = formatBytes(gameState.clicks);  // Update the counter display
-        output.innerHTML = formatCash(gameState.clicks * gameState.cashOutMulti);   // Update the Cash Out Value
+        gameState.bytes = 0;
+        updateTextElements();
+    });
+
+    // Upgrade dFarmer Speed
+    document.getElementById('dFarmerSpeedUpgrade-btn').addEventListener('click', function () {
+        gameState.dFarmerSpeedLevel++;
+        updateTextElements();
+    });
+    // Upgrade dFarmer Level
+    document.getElementById('dFarmerLevelUpgrade-btn').addEventListener('click', function () {
+        gameState.dFarmerUpgradeLevel++;
+        updateTextElements();
     });
 
     // Data Farmers
     /* -------------------------------------------------------------------------------------------------------------------------------- */
     document.getElementById('buyDFarmer1-btn').addEventListener('click', function () {
         gameState.dFarmers++;
-        document.getElementById('dFarmerTotal').innerText = gameState.dFarmers;
         autoGenPerSec = gameState.dFarmers / (gameState.dFarmerTickIncrement / 1000); // ReCalc Auto Gen
-        autoGenOutput.innerHTML = formatBytes(autoGenPerSec);    // Update Auto Gen Text
+        updateTextElements();
     });
     document.getElementById('buyDFarmer10-btn').addEventListener('click', function () {
         gameState.dFarmers += 10;
-        document.getElementById('dFarmerTotal').innerText = gameState.dFarmers;
         autoGenPerSec = gameState.dFarmers / (gameState.dFarmerTickIncrement / 1000); //ReCalc Auto Gen
-        autoGenOutput.innerHTML = formatBytes(autoGenPerSec);    // Update Auto Gen Text
+        updateTextElements();
     });
     document.getElementById('buyDFarmer100-btn').addEventListener('click', function () {
         gameState.dFarmers += 100;
-        document.getElementById('dFarmerTotal').innerText = gameState.dFarmers;
         autoGenPerSec = gameState.dFarmers / (gameState.dFarmerTickIncrement / 1000); //ReCalc Auto Gen
-        autoGenOutput.innerHTML = formatBytes(autoGenPerSec);    // Update Auto Gen Text
+        updateTextElements();
     });
+
+    // Updating Functions
+    /* -------------------------------------------------------------------------------------------------------------------------------- */
+    function updateProgressBar() {
+        progressPercentage = (currentLevelExp / currentLevelReqExp) * 100; // ReCalc Progress Percentage
+        document.getElementById('expBar').style.width = progressPercentage + "%"; // Update Exp Bar
+        document.getElementById('expBar').setAttribute('aria-valuenow', progressPercentage); // Update Exp Bar
+    }
+
+    function updateTextElements() {
+        document.getElementById('levelText').innerText = `${gameState.level}`; // Update Level Text
+        document.getElementById('expCounter').innerText = formatExp(gameState.exp, nextLevelReqExp); // Update Exp Text
+        document.getElementById('bCounter').innerText = formatBytes(gameState.bytes);  // Update the counter display
+        maxCashOut = formatCash(gameState.bytes * gameState.cashOutMulti); // ReCalc Cash Out Value
+        document.getElementById("cashOutVal").innerText = maxCashOut;   // Update the Cash Out Value
+        document.getElementById('cashCounter').innerText = formatCash(gameState.cash);  // Update the Total Cash display
+        document.getElementById('autoGenText').innerText = formatBytes(autoGenPerSec);    // Update Auto Gen Text
+        document.getElementById('dFarmerTotal').innerText = formatAddSuff(gameState.dFarmers); // Update Data Farmer Total
+        document.getElementById('dFarmerSpeedLevelText').innerText = `Data Farmer Speed Level : ${gameState.dFarmerSpeedLevel}`; // Update Data Farmer Speed Level
+        document.getElementById('dFarmerUpgradeLevelText').innerText = `Data Farmer Upgrade Level : ${gameState.dFarmerUpgradeLevel}`; // Update Data Farmer Upgrade Level
+    }
+
 
     // Leveling
     /* -------------------------------------------------------------------------------------------------------------------------------- */
     function levelUpCheck() {
-        progressPercentage = (gameState.exp / nextLevelReqExp) * 100; // ReCalc Progress Percentage
-        expBar.style.width = progressPercentage + "%"; // Update Exp Bar
-        expBar.setAttribute('aria-valuenow', progressPercentage); // Update Exp Bar
+        // Update variables
+        currentLevelExp = gameState.exp - prevLevelReqExp;
+        currentLevelReqExp = nextLevelReqExp - prevLevelReqExp;
+
+        updateProgressBar();
 
         if (gameState.exp >= nextLevelReqExp) {
             gameState.level++;
+            prevLevelReqExp = nextLevelReqExp; // Set Previous Level Req Exp
             nextLevelReqExp = ((gameState.level * 100) * (gameState.level ** 2)); // ReCalc Next Level Req Exp
-            progressPercentage = (gameState.exp / nextLevelReqExp) * 100; // ReCalc Progress Percentage
-            expBar.style.width = progressPercentage + "%"; // Update Exp Bar
-            expBar.setAttribute('aria-valuenow', progressPercentage); // Update Exp Bar
-            levelTextRef.innerHTML = `${gameState.level}`; // Update Level Text
-            expOutput.innerHTML = formatExp(gameState.exp, nextLevelReqExp); // Update Exp Text
+            updateProgressBar();
+            updateTextElements();
         }
     }
 
@@ -162,5 +186,19 @@ document.addEventListener('DOMContentLoaded', (event) => {
             i++;
         }
         return `$${cash.toFixed(2)} ${suffixes[i]}`;
+    }
+
+    function formatAddSuff(num) {
+        let i = 0;
+        const suffixes = ['M', 'B', 'T'];
+        while (num >= 1000000000 && i < suffixes.length) {
+            num /= 1000;
+            i++;
+        }
+        if (num < 1000000) {
+            return num.toLocaleString('en-US');
+        } else {
+            return `${num.toFixed(2)} ${suffixes[i]}`;
+        }
     }
 });
