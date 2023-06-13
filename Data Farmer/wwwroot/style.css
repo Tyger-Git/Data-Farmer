@@ -8,6 +8,12 @@
     font-family: Arial, sans-serif;
 }
 
+button:disabled {
+    background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
+}
+
 #upgradesPanel {
     position: fixed;
     border: 1px solid #59626c;
@@ -36,8 +42,14 @@
     transition: 0.5s; /* The button will take 0.5 seconds to slide in or out */
 }
 
+#dFarmerUpgradeDivLabel {
+    color: #fff;
+    position: fixed;
+    transform: rotate(-90deg) translate(60%, -300%);
+}
+
 #dFarmerSpeedUpgrade-btn {
-    width: 100px;
+    width: 400px;
     height: 40px;
     font-size: 1em;
     color: #fff;
@@ -55,7 +67,7 @@
 }
 
 #dFarmerLevelUpgrade-btn {
-    width: 100px;
+    width: 400px;
     height: 40px;
     font-size: 1em;
     color: #fff;
@@ -75,9 +87,11 @@
 }
 
 #dFarmerSpeedLevelText {
+    margin-top: 10px;
     color: #fff;
 }
 #dFarmerUpgradeLevelText {
+    margin-top: 15px;
     color: #fff;
 }
 #dFarmerUpgradeDiv {
@@ -86,7 +100,7 @@
     padding: 10px;
     border: 1px solid #59626c;
     width: 500px;
-    height: 200px;
+    height: 220px;
 }
 #counters {
     background-color: #111317;
