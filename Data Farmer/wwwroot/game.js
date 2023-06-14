@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     /* -------------------------------------------------------------------------------------------------------------------------------- */
     updateTextElements();
     updateUpgradeTextElements();
-    areUpgradesAvailable();
+    areUpgradesAvailable(gameState.cash);
 
     // Clock
     /* -------------------------------------------------------------------------------------------------------------------------------- */
@@ -45,9 +45,23 @@ document.addEventListener('DOMContentLoaded', (event) => {
         levelUpCheck();
         updateTextElements();
 
-        //Check if upgrades are available
-        areUpgradesAvailable(gameState.cash);
+        areUpgradesAvailable(gameState.cash); // Check if upgrades are available
+        checkAvailableElements(); // Check if elements are available based on level
     }, gameState.dFarmerTickIncrement);
+
+    // Hide Level Elements
+    /* -------------------------------------------------------------------------------------------------------------------------------- */
+    //Disabled for testing
+    /*
+    //hide dFarmerDiv
+    document.getElementById('toggleUpgradesPanelBtn').style.display = "none"
+    activateNewLevelElements();
+    */
+
+    // Initial elements to disable
+    /* -------------------------------------------------------------------------------------------------------------------------------- */
+    document.getElementById('dFarmerSpeedUpgrade-btn').disabled = true;
+    document.getElementById('dFarmerLevelUpgrade-btn').disabled = true;
 
     // Buttons
     /* -------------------------------------------------------------------------------------------------------------------------------- */
@@ -89,7 +103,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             dFarmerSpeedNextUpgradeAmnt = (1000 / (gameState.dFarmerSpeedLevel + 1)) / 1000;
             updateTextElements();
             updateUpgradeTextElements();
-            areUpgradesAvailable();
+            areUpgradesAvailable(gameState.cash);
         } else {
             gameState.cash -= dFarmerSpeedNextUpgradeCost;
             gameState.dFarmerSpeedLevel++;
@@ -97,7 +111,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             dFarmerSpeedNextUpgradeAmnt = 0;
             updateTextElements();
             updateUpgradeTextElements();
-            areUpgradesAvailable();
+            areUpgradesAvailable(gameState.cash);
             //Turn button off if max level
             this.disabled = true;
         }
@@ -110,14 +124,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
             dFarmerLevelNextUpgradeAmnt = (gameState.dFarmerUpgradeLevel + 1) ** 3;
             updateTextElements();
             updateUpgradeTextElements();
-            areUpgradesAvailable();
+            areUpgradesAvailable(gameState.cash);
             console.log("a");
         } else {
             gameState.cash -= dFarmerLevelNextUpgradeCost;
             gameState.dFarmerUpgradeLevel++;
             updateTextElements();
             updateUpgradeTextElements();
-            areUpgradesAvailable();
+            areUpgradesAvailable(gameState.cash);
             //Turn button off if max level
             this.disabled = true;
             console.log("b");
@@ -147,7 +161,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     function areUpgradesAvailable(cash) {
         if (gameState.dFarmers > 0) {
             if (cash >= dFarmerSpeedNextUpgradeCost) { document.getElementById('dFarmerSpeedUpgrade-btn').disabled = false; } else { document.getElementById('dFarmerSpeedUpgrade-btn').disabled = true; } // dFarmer Speed Upgrade
-            if (cash >= dFarmerLevelNextUpgradeCost) { document.getElementById('dFarmerSpeedUpgrade-btn').disabled = false; } else { document.getElementById('dFarmerSpeedUpgrade-btn').disabled = true; } // dFarmer Level Upgrade
+            if (cash >= dFarmerLevelNextUpgradeCost) { document.getElementById('dFarmerLevelUpgrade-btn').disabled = false; } else { document.getElementById('dFarmerLevelUpgrade-btn').disabled = true; } // dFarmer Level Upgrade
         }
         else {
             document.getElementById('dFarmerSpeedUpgrade-btn').disabled = true;
@@ -175,14 +189,26 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
 
     function updateUpgradeTextElements() {
+
+        //DFarmer Upgrade Text
         document.getElementById('dFarmerSpeedLevelText').innerText = `Data Farmer Speed Level : ${gameState.dFarmerSpeedLevel} / 10`; // Update Data Farmer Speed Level
         document.getElementById('dFarmerUpgradeLevelText').innerText = `Data Farmer Upgrade Level : ${gameState.dFarmerUpgradeLevel} / 10`; // Update Data Farmer Upgrade Level
-        if (gameState.dFarmerSpeedLevel < 10) {
+        if (gameState.dFarmerSpeedLevel < 10 && gameState.dFarmers > 0) {
             document.getElementById('dFarmerSpeedUpgrade-btn').innerText = `Increase Speed : ${dFarmerSpeedNextUpgradeAmnt} sec tick rate | Cost : ${formatCash(dFarmerSpeedNextUpgradeCost)}`; // Update Data Farmer Speed Upgrade Cost
+        } else if (gameState.dFarmerSpeedLevel === 10 && gameState.dFarmers > 0) {
+            document.getElementById('dFarmerSpeedUpgrade-btn').innerText = `Max Speed`; // Maxxed Out
         } else {
-            document.getElementById('dFarmerSpeedUpgrade-btn').innerText = `Max Speed`; // Update Data Farmer Speed Upgrade Cost
+            document.getElementById('dFarmerSpeedUpgrade-btn').innerText = `Buy Data Farmers to Enable Upgrades!`; // No dFarmer Case
         }
-        document.getElementById('dFarmerLevelUpgrade-btn').innerText = `Bytes per tick : +${formatBytes(dFarmerLevelNextUpgradeAmnt)} Cost : ${formatCash(dFarmerLevelNextUpgradeCost)}`; // Update Data Farmer Level Upgrade Cost
+        if (gameState.dFarmerUpgradeLevel < 10 && gameState.dFarmers > 0) {
+            document.getElementById('dFarmerLevelUpgrade-btn').innerText = `Bytes per tick : +${formatBytes(dFarmerLevelNextUpgradeAmnt)} Cost : ${formatCash(dFarmerLevelNextUpgradeCost)}`; // Update Data Farmer Level Upgrade Cost
+        } else if (gameState.dFarmerSpeedLevel === 10 && gameState.dFarmers > 0) {
+            document.getElementById('dFarmerLevelUpgrade-btn').innerText = `Max Bytes Per Tick`; // Maxxed out
+        } else {
+            document.getElementById('dFarmerLevelUpgrade-btn').innerText = `Buy Data Farmers to Enable Upgrades!`; // No dFarmer Case
+        }
+
+
     }
 
 
@@ -201,6 +227,18 @@ document.addEventListener('DOMContentLoaded', (event) => {
             nextLevelReqExp = ((gameState.level * 100) * (gameState.level ** 2)); // ReCalc Next Level Req Exp
             updateProgressBar();
             updateTextElements();
+            activateNewLevelElements();
+        }
+    }
+
+    function activateNewLevelElements() {
+        switch (gameState.level) {
+            case 2:
+                //Unhide dFarmer Div
+                break;
+            case 3:
+                document.getElementById('toggleUpgradesPanelBtn').style.display = "block";
+                break;
         }
     }
 

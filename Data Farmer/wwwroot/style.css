@@ -8,12 +8,6 @@
     font-family: Arial, sans-serif;
 }
 
-button:disabled {
-    background-color: #cccccc;
-    color: #666666;
-    cursor: not-allowed;
-}
-
 #upgradesPanel {
     position: fixed;
     border: 1px solid #59626c;
@@ -84,6 +78,13 @@ button:disabled {
 
 #dFarmerLevelUpgrade-btn:active {
     background-color: #808080;
+}
+
+#dFarmerSpeedUpgrade-btn:disabled,
+#dFarmerLevelUpgrade-btn:disabled {
+    background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
 }
 
 #dFarmerSpeedLevelText {
