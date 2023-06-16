@@ -29,11 +29,6 @@ body {
 #toggleUpgradesPanelBtn {
     width: 300px;
     font-size: 1em;
-    color: #fff;
-    background-color: #59626c;
-    border: 1px solid #fff;
-    border-radius: 5px;
-    cursor: pointer;
     position: fixed;
     right: 0;
     top: 50%;
@@ -52,12 +47,6 @@ body {
     width: 400px;
     height: 40px;
     font-size: 1em;
-    color: #fff;
-    background-color: #59626c;
-    border: 1px solid #fff;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
 }
 #dFarmerSpeedUpgrade-btn:hover {
     background-color: #333;
@@ -70,12 +59,6 @@ body {
     width: 400px;
     height: 40px;
     font-size: 1em;
-    color: #fff;
-    background-color: #59626c;
-    border: 1px solid #fff;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
 }
 
 #dFarmerLevelUpgrade-btn:hover {
@@ -157,12 +140,6 @@ body {
     width: 300px;
     padding: 5px 10px;
     font-size: 1em;
-    color: #fff;
-    background-color: #59626c;
-    border: 1px solid #fff;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
 }
 
 #collect-btn:hover {
@@ -178,12 +155,6 @@ body {
     width: 300px;
     padding: 5px 10px;
     font-size: 1em;
-    color: #fff;
-    background-color: #59626c;
-    border: 1px solid #fff;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
 }
 
 #cashout-btn:hover {
@@ -221,12 +192,6 @@ body {
     width: 50px;
     height: 30px;
     margin-left: 5px;
-    color: #fff;
-    background-color: #59626c;
-    border: 1px solid #fff;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
 }
 #buyDFarmer1-btn:hover {
     background-color: #333;
@@ -239,12 +204,6 @@ body {
     width: 50px;
     height: 30px;
     margin-left: 5px;
-    color: #fff;
-    background-color: #59626c;
-    border: 1px solid #fff;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
 }
 #buyDFarmer10-btn:hover {
     background-color: #333;
@@ -257,12 +216,6 @@ body {
     width: 50px;
     height: 30px;
     margin-left: 5px;
-    color: #fff;
-    background-color: #59626c;
-    border: 1px solid #fff;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
 }
 #buyDFarmer100-btn:hover {
     background-color: #333;
@@ -285,4 +238,13 @@ body {
 
 .custom-progress .progress-bar {
     background-color: #03039b;
+}
+
+.std-btn {
+    color: #fff;
+    background-color: #59626c;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
