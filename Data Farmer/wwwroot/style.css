@@ -1,4 +1,6 @@
-﻿body {
+﻿/* Styling for all HTML elements */
+
+body {
     display: flex;
     justify-content: left;
     padding-top: 20px;
@@ -7,6 +9,10 @@
     background-color: #111317;
     font-family: Arial, sans-serif;
 }
+
+
+/* Upgrades Panel */
+/* -------------------------------------------------------------------------------------------------------------------------------------- */
 
 #upgradesPanel {
     position: fixed;
@@ -103,6 +109,10 @@
     width: 500px;
     height: 220px;
 }
+
+/* Counter Div */
+/* -------------------------------------------------------------------------------------------------------------------------------------- */
+
 #counters {
     background-color: #111317;
     text-align: center;
@@ -184,6 +194,9 @@
         background-color: #808080;
 }
 
+/* Data Farmers Div */
+/* -------------------------------------------------------------------------------------------------------------------------------------- */
+
 #dFarmers {
     display: flex;
     background-color: #111317;
@@ -202,11 +215,6 @@
     color: #fff;
     margin: 0;
     margin-right: 20px;
-}
-
-.vertical-align {
-    display: flex;
-    align-items: center;
 }
 
 #buyDFarmer1-btn {
@@ -261,6 +269,14 @@
 }
 #buyDFarmer100-btn:active {
     background-color: #808080;
+}
+
+/* Classes */
+/* -------------------------------------------------------------------------------------------------------------------------------------- */
+
+.vertical-align {
+    display: flex;
+    align-items: center;
 }
 
 .custom-progress {
