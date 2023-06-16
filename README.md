@@ -1,2 +1,3 @@
 # Data-Farmer
-Farm some data!
+
+A Personal Project using barebones JS
