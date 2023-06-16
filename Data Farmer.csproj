@@ -8,11 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\game.html" />
-    <None Include="wwwroot\game.js" />
-    <None Include="wwwroot\login.html" />
-    <None Include="wwwroot\login.js" />
-    <None Include="wwwroot\style.css" />
-  </ItemGroup>
+     <None Include="wwwroot\game.html" />
+     <None Include="wwwroot\js\game.js" />
+     <None Include="wwwroot\css\game-styles.css" />
+     <None Include="wwwroot\css\index-styles.css" />
+   </ItemGroup>
 
 </Project>

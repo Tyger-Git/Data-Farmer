@@ -1,0 +1,250 @@
+﻿/* Styling for all HTML elements */
+
+body {
+    display: flex;
+    justify-content: left;
+    padding-top: 20px;
+    padding-left: 20px;
+    margin: 0;
+    background-color: #111317;
+    font-family: Arial, sans-serif;
+}
+
+
+/* Upgrades Panel */
+/* -------------------------------------------------------------------------------------------------------------------------------------- */
+
+#upgradesPanel {
+    position: fixed;
+    border: 1px solid #59626c;
+    right: -500px; /* Start with the panel off-screen */
+    top: 0;
+    width: 500px; /* Set the width of the panel */
+    height: 100%; /* Make the panel fill the screen vertically */
+    background-color: #333;
+    overflow-x: hidden;
+    transition: 0.5s; /* The panel will take 0.5 seconds to slide in or out */
+}
+
+#toggleUpgradesPanelBtn {
+    width: 300px;
+    font-size: 1em;
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transform: rotate(-90deg) translate(0%, 290%);
+    padding: 10px;
+    transition: 0.5s; /* The button will take 0.5 seconds to slide in or out */
+}
+
+#dFarmerUpgradeDivLabel {
+    color: #fff;
+    position: fixed;
+    transform: rotate(-90deg) translate(60%, -300%);
+}
+
+#dFarmerSpeedUpgrade-btn {
+    width: 400px;
+    height: 40px;
+    font-size: 1em;
+}
+#dFarmerSpeedUpgrade-btn:hover {
+    background-color: #333;
+}
+#dFarmerSpeedUpgrade-btn:active {
+    background-color: #808080;
+}
+
+#dFarmerLevelUpgrade-btn {
+    width: 400px;
+    height: 40px;
+    font-size: 1em;
+}
+
+#dFarmerLevelUpgrade-btn:hover {
+    background-color: #333;
+}
+
+#dFarmerLevelUpgrade-btn:active {
+    background-color: #808080;
+}
+
+#dFarmerSpeedUpgrade-btn:disabled,
+#dFarmerLevelUpgrade-btn:disabled {
+    background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
+}
+
+#dFarmerSpeedLevelText {
+    margin-top: 10px;
+    color: #fff;
+}
+#dFarmerUpgradeLevelText {
+    margin-top: 15px;
+    color: #fff;
+}
+#dFarmerUpgradeDiv {
+    background-color: #111317;
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #59626c;
+    width: 500px;
+    height: 220px;
+}
+
+/* Counter Div */
+/* -------------------------------------------------------------------------------------------------------------------------------------- */
+
+#counters {
+    background-color: #111317;
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #59626c;
+    width: 350px;
+    height: 320px;
+}
+
+#expText {
+    font-size: .8em;
+    color: #fff;
+    margin-top: 30px;
+}
+
+#levelText {
+    margin-right: 20px;
+}
+
+#farmGenerationText {
+    font-size: .6em;
+    color: #fff;
+}
+
+#farmGeneration {
+    font-size: .6em;
+    color: #fff;
+}
+
+#bCounter {
+    font-size: 2em;
+    color: #fff;
+}
+
+#cashCounter {
+    padding-top: 0px;
+    font-size: 1.5em;
+    color: #17811d;
+}
+
+#collect-btn {
+    width: 300px;
+    padding: 5px 10px;
+    font-size: 1em;
+}
+
+#collect-btn:hover {
+    background-color: #333;
+}
+
+#collect-btn:active {
+    background-color: #808080;
+}
+
+#cashout-btn {
+    margin-top: 10px;
+    width: 300px;
+    padding: 5px 10px;
+    font-size: 1em;
+}
+
+#cashout-btn:hover {
+        background-color: #333;
+}
+
+#cashout-btn:active {
+        background-color: #808080;
+}
+
+/* Data Farmers Div */
+/* -------------------------------------------------------------------------------------------------------------------------------------- */
+
+#dFarmers {
+    display: flex;
+    background-color: #111317;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border: 1px solid #59626c;
+    width: 425px;
+    height: 50px;
+    margin-left: 5px;
+}
+
+#dataFarmerText {
+    line-height: 50px;
+    font-size: 1em;
+    color: #fff;
+    margin: 0;
+    margin-right: 20px;
+}
+
+#buyDFarmer1-btn {
+    width: 50px;
+    height: 30px;
+    margin-left: 5px;
+}
+#buyDFarmer1-btn:hover {
+    background-color: #333;
+}
+#buyDFarmer1-btn:active {
+    background-color: #808080;
+}
+
+#buyDFarmer10-btn {
+    width: 50px;
+    height: 30px;
+    margin-left: 5px;
+}
+#buyDFarmer10-btn:hover {
+    background-color: #333;
+}
+#buyDFarmer10-btn:active {
+    background-color: #808080;
+}
+
+#buyDFarmer100-btn {
+    width: 50px;
+    height: 30px;
+    margin-left: 5px;
+}
+#buyDFarmer100-btn:hover {
+    background-color: #333;
+}
+#buyDFarmer100-btn:active {
+    background-color: #808080;
+}
+
+/* Classes */
+/* -------------------------------------------------------------------------------------------------------------------------------------- */
+
+.vertical-align {
+    display: flex;
+    align-items: center;
+}
+
+.custom-progress {
+    height: 5px;
+}
+
+.custom-progress .progress-bar {
+    background-color: #03039b;
+}
+
+.std-btn {
+    color: #fff;
+    background-color: #59626c;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}

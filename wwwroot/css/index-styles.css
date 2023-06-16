@@ -1,0 +1,11 @@
+﻿/* Styling for all HTML elements */
+
+body {
+    display: flex;
+    justify-content: left;
+    padding-top: 20px;
+    padding-left: 20px;
+    margin: 0;
+    background-color: #111317;
+    font-family: Arial, sans-serif;
+}
