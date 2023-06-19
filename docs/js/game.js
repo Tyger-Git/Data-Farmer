@@ -49,19 +49,23 @@ document.addEventListener('DOMContentLoaded', (event) => {
             if (!gamePaused) {
                 gameState.bytes += (gameState.dFarmers * (gameState.dFarmerUpgradeLevel ** 3));
                 gameState.exp += (gameState.dFarmers * (gameState.dFarmerUpgradeLevel ** 3));
-                levelUpCheck();
-                updateTextElements();
-
-                areUpgradesAvailable(gameState.cash); // Check if upgrades are available
+                updateAll();
             }
         }, gameState.dFarmerTickIncrement);
     }
 
+    // Global Update Function
+    /* -------------------------------------------------------------------------------------------------------------------------------- */
+    function updateAll() {
+        levelUpCheck();
+        updateTextElements();
+        areUpgradesAvailable(gameState.cash);
+        updateUpgradeTextElements();
+    }
+
     // Initial Function Calls
     /* -------------------------------------------------------------------------------------------------------------------------------- */
-    updateTextElements();
-    updateUpgradeTextElements();
-    areUpgradesAvailable(gameState.cash);
+    updateAll();
     setGameClock();
 
     // Hide Level Elements
@@ -100,8 +104,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         gameState.bytes += 10;
         //gameState.exp++; Testing Purposes
         gameState.exp += 10;
-        levelUpCheck();
-        updateTextElements();
+        updateAll();
     });
 
     // Cash Out Button
@@ -109,7 +112,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         let cashToAdd = (gameState.bytes * gameState.cashOutMulti);
         gameState.cash = gameState.cash + cashToAdd;
         gameState.bytes = 0;
-        updateTextElements();
+        updateAll();
     });
 
     // Upgrade dFarmer Speed
@@ -119,18 +122,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
             gameState.dFarmerSpeedLevel++;
             gameState.dFarmerTickIncrement = 1000 / gameState.dFarmerSpeedLevel;
             dFarmerSpeedNextUpgradeAmnt = (1000 / (gameState.dFarmerSpeedLevel + 1)) / 1000;
-            updateTextElements();
-            updateUpgradeTextElements();
-            areUpgradesAvailable(gameState.cash);
+            updateAll();
             setGameClock();
         } else {
             gameState.cash -= dFarmerSpeedNextUpgradeCost;
             gameState.dFarmerSpeedLevel++;
             gameState.dFarmerTickIncrement = 1000 / gameState.dFarmerSpeedLevel;
             dFarmerSpeedNextUpgradeAmnt = 0;
-            updateTextElements();
-            updateUpgradeTextElements();
-            areUpgradesAvailable(gameState.cash);
+            updateAll();
             setGameClock();
             //Turn button off if max level
             this.disabled = true;
@@ -142,19 +141,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
             gameState.cash -= dFarmerLevelNextUpgradeCost;
             gameState.dFarmerUpgradeLevel++;
             dFarmerLevelNextUpgradeAmnt = (gameState.dFarmerUpgradeLevel + 1) ** 3;
-            updateTextElements();
-            updateUpgradeTextElements();
-            areUpgradesAvailable(gameState.cash);
-            console.log("a");
+            updateAll();
         } else {
             gameState.cash -= dFarmerLevelNextUpgradeCost;
             gameState.dFarmerUpgradeLevel++;
-            updateTextElements();
-            updateUpgradeTextElements();
-            areUpgradesAvailable(gameState.cash);
+            updateAll();
             //Turn button off if max level
             this.disabled = true;
-            console.log("b");
         }
     });
 
@@ -163,17 +156,17 @@ document.addEventListener('DOMContentLoaded', (event) => {
     document.getElementById('buyDFarmer1-btn').addEventListener('click', function () {
         gameState.dFarmers++;
         autoGenPerSec = gameState.dFarmers / (gameState.dFarmerTickIncrement / 1000); // ReCalc Auto Gen
-        updateTextElements();
+        updateAll();
     });
     document.getElementById('buyDFarmer10-btn').addEventListener('click', function () {
         gameState.dFarmers += 10;
         autoGenPerSec = gameState.dFarmers / (gameState.dFarmerTickIncrement / 1000); //ReCalc Auto Gen
-        updateTextElements();
+        updateAll();
     });
     document.getElementById('buyDFarmer100-btn').addEventListener('click', function () {
         gameState.dFarmers += 100;
         autoGenPerSec = gameState.dFarmers / (gameState.dFarmerTickIncrement / 1000); //ReCalc Auto Gen
-        updateTextElements();
+        updateAll();
     });
 
     //Upgrade Functions
@@ -280,9 +273,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
 
     var levelUpMsg = [
-        "Level 2",
-        "Level 3",
-        "Level 4"
+        "You've unlocked Freelance Data Farmers! For an upfront cost, you can now hire freelance data miners to help gather data from the web. These freelance workers will automatically produce data over time. Outsourcing baby!",
+        "You've unlocked the Upgrades panel! Here you can purchase upgrades for all sorts of things. Check out the tab to the right!",
+        "4",
+        "5"
     ];
 
     function levelUpModal(level) {
