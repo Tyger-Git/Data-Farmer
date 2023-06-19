@@ -1,5 +1,7 @@
 // Imports
 
+// Testing
+// Testing Git Hook
 
 // Wrap the code in a DOMContentLoaded event listener
 document.addEventListener('DOMContentLoaded', (event) => {
