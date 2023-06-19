@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     };
     // Early Initializations
     /* -------------------------------------------------------------------------------------------------------------------------------- */
+    let gamePaused = false;
     let maxCashOut = formatCash(gameState.bytes * gameState.cashOutMulti);
     let autoGenPerSec = gameState.dFarmers / (gameState.dFarmerTickIncrement / 1000); // Per sec calc
     let nextLevelReqExp = ((gameState.level * 100) * (gameState.level ** 3));
@@ -33,32 +34,45 @@ document.addEventListener('DOMContentLoaded', (event) => {
     let dFarmerLevelNextUpgradeCost = (gameState.dFarmerUpgradeLevel ** 2) * 10;;
     let dFarmerLevelNextUpgradeAmnt = (gameState.dFarmerUpgradeLevel + 1) ** 3;
 
+    
+    // Clock
+    /* -------------------------------------------------------------------------------------------------------------------------------- */
+    var gameClock;
+    function setGameClock() {
+        // Clear existing clock if any
+        if (gameClock) {
+            clearInterval(gameClock);
+        }
+
+        // Create new game clock
+        gameClock = setInterval(function () {
+            if (!gamePaused) {
+                gameState.bytes += (gameState.dFarmers * (gameState.dFarmerUpgradeLevel ** 3));
+                gameState.exp += (gameState.dFarmers * (gameState.dFarmerUpgradeLevel ** 3));
+                levelUpCheck();
+                updateTextElements();
+
+                areUpgradesAvailable(gameState.cash); // Check if upgrades are available
+            }
+        }, gameState.dFarmerTickIncrement);
+    }
+
     // Initial Function Calls
     /* -------------------------------------------------------------------------------------------------------------------------------- */
     updateTextElements();
     updateUpgradeTextElements();
     areUpgradesAvailable(gameState.cash);
-
-    // Clock
-    /* -------------------------------------------------------------------------------------------------------------------------------- */
-    setInterval(function () {
-        gameState.bytes += (gameState.dFarmers * (gameState.dFarmerUpgradeLevel ** 3));
-        gameState.exp += (gameState.dFarmers * (gameState.dFarmerUpgradeLevel ** 3));
-        levelUpCheck();
-        updateTextElements();
-
-        areUpgradesAvailable(gameState.cash); // Check if upgrades are available
-        checkAvailableElements(); // Check if elements are available based on level
-    }, gameState.dFarmerTickIncrement);
+    setGameClock();
 
     // Hide Level Elements
     /* -------------------------------------------------------------------------------------------------------------------------------- */
+
     //Disabled for testing
-    /*
-    //hide dFarmerDiv
+
+    document.getElementById('dFarmers').style.display = "none";
     document.getElementById('toggleUpgradesPanelBtn').style.display = "none"
     activateNewLevelElements();
-    */
+    
 
     // Initial elements to disable
     /* -------------------------------------------------------------------------------------------------------------------------------- */
@@ -82,8 +96,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
     // Collect Button
     document.getElementById('collect-btn').addEventListener('click', function () {
-        gameState.bytes++;
-        gameState.exp++;
+        //gameState.bytes++; Testing Purposes
+        gameState.bytes += 10;
+        //gameState.exp++; Testing Purposes
+        gameState.exp += 10;
         levelUpCheck();
         updateTextElements();
     });
@@ -106,6 +122,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             updateTextElements();
             updateUpgradeTextElements();
             areUpgradesAvailable(gameState.cash);
+            setGameClock();
         } else {
             gameState.cash -= dFarmerSpeedNextUpgradeCost;
             gameState.dFarmerSpeedLevel++;
@@ -114,6 +131,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             updateTextElements();
             updateUpgradeTextElements();
             areUpgradesAvailable(gameState.cash);
+            setGameClock();
             //Turn button off if max level
             this.disabled = true;
         }
@@ -213,6 +231,22 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     }
 
+    // Save Game and Pause Game
+    /* -------------------------------------------------------------------------------------------------------------------------------- */
+    function saveGame() {
+
+    }
+
+    function pauseGame() {
+        gamePaused = true;
+        saveGame();
+    }
+
+    function unPauseGame() {
+        gamePaused = false;
+        saveGame();
+    }
+
 
     // Leveling
     /* -------------------------------------------------------------------------------------------------------------------------------- */
@@ -230,17 +264,46 @@ document.addEventListener('DOMContentLoaded', (event) => {
             updateProgressBar();
             updateTextElements();
             activateNewLevelElements();
+            levelUpModal(gameState.level);
         }
     }
 
     function activateNewLevelElements() {
         switch (gameState.level) {
             case 2:
-                //Unhide dFarmer Div
+                document.getElementById('dFarmers').style.display = "flex";
                 break;
             case 3:
                 document.getElementById('toggleUpgradesPanelBtn').style.display = "block";
                 break;
+        }
+    }
+
+    var levelUpMsg = [
+        "Level 2",
+        "Level 3",
+        "Level 4"
+    ];
+
+    function levelUpModal(level) {
+        pauseGame();
+        document.getElementById('levelUpModalHeader').textContent = `Congratulations, you've reached level ${level}!`;
+        document.getElementById('levelUpModalText').textContent = levelUpMsg[level - 2];
+        document.getElementById('levelUpModal').style.display = "block";
+    }
+
+    var modal = document.getElementById("levelUpModal");
+    var btn = document.getElementById("gotItBtn");
+
+    btn.onclick = function () {
+        modal.style.display = "none";
+        unPauseGame();
+    }
+
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+            unPauseGame();
         }
     }
 
