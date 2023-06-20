@@ -1,24 +1,16 @@
 // Imports
-
+import { gameState, saveGame, loadGame } from './gameState.js';
+import { tempUserName } from './index.js';
 // Testing
 // Testing Git Hook
 
 // Wrap the code in a DOMContentLoaded event listener
 document.addEventListener('DOMContentLoaded', (event) => {
 
+    // Load game state from local storage
+    /* -------------------------------------------------------------------------------------------------------------------------------- */
+    //loadGame(tempUserName);
 
-    // Initialize the game state
-    let gameState = {
-        bytes: 0,
-        cash: 0,
-        cashOutMulti: .0015,
-        dFarmers: 0,
-        dFarmerSpeedLevel: 1,
-        dFarmerUpgradeLevel: 1,
-        dFarmerTickIncrement: 1000,
-        level: 1,
-        exp: 0
-    };
     // Early Initializations
     /* -------------------------------------------------------------------------------------------------------------------------------- */
     let gamePaused = false;
@@ -224,12 +216,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     }
 
-    // Save Game and Pause Game
+    // Pausing
     /* -------------------------------------------------------------------------------------------------------------------------------- */
-    function saveGame() {
-
-    }
-
     function pauseGame() {
         gamePaused = true;
         saveGame();

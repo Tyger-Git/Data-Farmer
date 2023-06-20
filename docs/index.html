@@ -6,11 +6,28 @@
     <link rel="stylesheet" href="css\index-styles.css">
 </head>
 <body>
-    <div id="login">
-        <input type="text" id="username" placeholder="Enter username">
-        <button id="login-btn">Login</button>
-        <button id="skip-login">Skip Login</button>
+    <div id="startButtons">
+        <div id="login">
+            <button id="newGameBtn" class="std-btn">New Game...</button>
+            <button id="loadGameBtn" class="std-btn">Load Game...</button>
+            <button id="skip-login" class="std-btn">Dev Mode</button>
+        </div>
+        <div id="newGameModal" class="modal">
+            <div class="modal-content">
+                <p id="newGameModalText"></p>
+                <input type="text" id="username" placeholder="Enter Username">
+                <button id="startNewGameBtn" class="std-btn">Start Game</button>
+            </div>
+        </div>
+        <div id="loadGameModal" class="modal">
+            <div class="modal-content">
+                <p id="loadGameModalText">Pick up where you left off :</p>
+                <!--List of Save States-->
+                <button id="loadSavedGameBtn" class="std-btn">Load Save...</button>
+                <button id="deleteSavedGameBtn" class="std-btn">Delete Save...</button>
+            </div>
+        </div>
     </div>
-    <script src="js\index.js"></script>
+    <script type="module" src="js\index.js"></script>
 </body>
 </html>

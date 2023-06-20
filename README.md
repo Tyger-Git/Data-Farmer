@@ -4,4 +4,6 @@ A Personal Project
 
 Dev Notes:
 
--Fix GitHook to work well with Pages integration
+- Sliding animation on upgrades
+- More Save State Work
+- Re-organize more code into modules
