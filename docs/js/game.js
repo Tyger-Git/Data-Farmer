@@ -1,6 +1,5 @@
 // Imports
-import { gameState, saveGame, loadGame } from './gameState.js';
-import { tempUserName } from './index.js';
+import { gameState, setGameState,  saveGame, loadGame } from './gameState.js';
 // Testing
 // Testing Git Hook
 
@@ -9,7 +8,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     // Load game state from local storage
     /* -------------------------------------------------------------------------------------------------------------------------------- */
-    //loadGame(tempUserName);
 
     // Early Initializations
     /* -------------------------------------------------------------------------------------------------------------------------------- */
@@ -39,8 +37,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
         // Create new game clock
         gameClock = setInterval(function () {
             if (!gamePaused) {
-                gameState.bytes += (gameState.dFarmers * (gameState.dFarmerUpgradeLevel ** 3));
-                gameState.exp += (gameState.dFarmers * (gameState.dFarmerUpgradeLevel ** 3));
+                const newBytes = gameState.bytes + (gameState.dFarmers * (gameState.dFarmerUpgradeLevel ** 3));
+                const newExp = gameState.exp + (gameState.dFarmers * (gameState.dFarmerUpgradeLevel ** 3));
+                setGameState({
+                    bytes: newBytes,
+                    exp: newExp,
+                });
                 updateAll();
             }
         }, gameState.dFarmerTickIncrement);
@@ -92,73 +94,118 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
     // Collect Button
     document.getElementById('collect-btn').addEventListener('click', function () {
-        //gameState.bytes++; Testing Purposes
-        gameState.bytes += 10;
-        //gameState.exp++; Testing Purposes
-        gameState.exp += 10;
+        const newBytes = gameState.bytes + 10;
+        const newExp = gameState.exp + 10;
+        setGameState({
+            bytes: newBytes,
+            exp: newExp,
+        });
         updateAll();
     });
 
     // Cash Out Button
     document.getElementById('cashout-btn').addEventListener('click', function () {
         let cashToAdd = (gameState.bytes * gameState.cashOutMulti);
-        gameState.cash = gameState.cash + cashToAdd;
-        gameState.bytes = 0;
+        let newCash = gameState.cash + cashToAdd;
+        setGameState({
+            cash: newCash,
+            bytes: 0,
+        });
         updateAll();
+        saveGame();
     });
 
     // Upgrade dFarmer Speed
     document.getElementById('dFarmerSpeedUpgrade-btn').addEventListener('click', function () {
-        if (gameState.dFarmerSpeedLevel < 9) {
-            gameState.cash -= dFarmerSpeedNextUpgradeCost;
-            gameState.dFarmerSpeedLevel++;
-            gameState.dFarmerTickIncrement = 1000 / gameState.dFarmerSpeedLevel;
-            dFarmerSpeedNextUpgradeAmnt = (1000 / (gameState.dFarmerSpeedLevel + 1)) / 1000;
-            updateAll();
-            setGameClock();
+        const newCash = gameState.cash - dFarmerSpeedNextUpgradeCost;
+        const newSpeedLevel = gameState.dFarmerSpeedLevel + 1;
+        const newTickIncrement = 1000 / newSpeedLevel;
+        let newSpeedUpgradeAmnt;
+
+        if (newSpeedLevel < 10) {
+            newSpeedUpgradeAmnt = (1000 / (newSpeedLevel + 1)) / 1000;
         } else {
-            gameState.cash -= dFarmerSpeedNextUpgradeCost;
-            gameState.dFarmerSpeedLevel++;
-            gameState.dFarmerTickIncrement = 1000 / gameState.dFarmerSpeedLevel;
-            dFarmerSpeedNextUpgradeAmnt = 0;
-            updateAll();
-            setGameClock();
-            //Turn button off if max level
+            newSpeedUpgradeAmnt = 0;
+            // Turn button off if max level
             this.disabled = true;
         }
+
+        setGameState({
+            cash: newCash,
+            dFarmerSpeedLevel: newSpeedLevel,
+            dFarmerTickIncrement: newTickIncrement,
+        });
+
+        dFarmerSpeedNextUpgradeAmnt = newSpeedUpgradeAmnt;
+        updateAll();
+        setGameClock();
+        saveGame();
     });
+
     // Upgrade dFarmer Level
     document.getElementById('dFarmerLevelUpgrade-btn').addEventListener('click', function () {
-        if (gameState.dFarmerUpgradeLevel < 9) {
-            gameState.cash -= dFarmerLevelNextUpgradeCost;
-            gameState.dFarmerUpgradeLevel++;
-            dFarmerLevelNextUpgradeAmnt = (gameState.dFarmerUpgradeLevel + 1) ** 3;
-            updateAll();
+        const newCash = gameState.cash - dFarmerLevelNextUpgradeCost;
+        const newUpgradeLevel = gameState.dFarmerUpgradeLevel + 1;
+
+        if (newUpgradeLevel < 10) {
+            dFarmerLevelNextUpgradeAmnt = (newUpgradeLevel + 1) ** 3;
         } else {
-            gameState.cash -= dFarmerLevelNextUpgradeCost;
-            gameState.dFarmerUpgradeLevel++;
-            updateAll();
-            //Turn button off if max level
+            // Turn button off if max level
             this.disabled = true;
         }
+
+        setGameState({
+            cash: newCash,
+            dFarmerUpgradeLevel: newUpgradeLevel,
+        });
+
+        updateAll();
+        saveGame();
     });
+
+    // LevelUp Button "Got It"
+    document.getElementById("gotItBtn").onclick = function () {
+        document.getElementById("levelUpModal").style.display = "none";
+        unPauseGame();
+    }
 
     // Data Farmers
     /* -------------------------------------------------------------------------------------------------------------------------------- */
+    function calculateAutoGenPerSec(dFarmers, dFarmerTickIncrement) {
+        return dFarmers / (dFarmerTickIncrement / 1000);
+    }
+
     document.getElementById('buyDFarmer1-btn').addEventListener('click', function () {
-        gameState.dFarmers++;
-        autoGenPerSec = gameState.dFarmers / (gameState.dFarmerTickIncrement / 1000); // ReCalc Auto Gen
+        const newDFarmers = gameState.dFarmers + 1;
+        const newAutoGenPerSec = calculateAutoGenPerSec(newDFarmers, gameState.dFarmerTickIncrement);
+        setGameState({
+            dFarmers: newDFarmers
+        });
+        autoGenPerSec = newAutoGenPerSec; // ReCalc Auto Gen
         updateAll();
+        saveGame();
     });
+
     document.getElementById('buyDFarmer10-btn').addEventListener('click', function () {
-        gameState.dFarmers += 10;
-        autoGenPerSec = gameState.dFarmers / (gameState.dFarmerTickIncrement / 1000); //ReCalc Auto Gen
+        const newDFarmers = gameState.dFarmers + 10;
+        const newAutoGenPerSec = calculateAutoGenPerSec(newDFarmers, gameState.dFarmerTickIncrement);
+        setGameState({
+            dFarmers: newDFarmers
+        });
+        autoGenPerSec = newAutoGenPerSec; // ReCalc Auto Gen
         updateAll();
+        saveGame();
     });
+
     document.getElementById('buyDFarmer100-btn').addEventListener('click', function () {
-        gameState.dFarmers += 100;
-        autoGenPerSec = gameState.dFarmers / (gameState.dFarmerTickIncrement / 1000); //ReCalc Auto Gen
+        const newDFarmers = gameState.dFarmers + 100;
+        const newAutoGenPerSec = calculateAutoGenPerSec(newDFarmers, gameState.dFarmerTickIncrement);
+        setGameState({
+            dFarmers: newDFarmers
+        });
+        autoGenPerSec = newAutoGenPerSec; // ReCalc Auto Gen
         updateAll();
+        saveGame();
     });
 
     //Upgrade Functions
@@ -231,17 +278,39 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     // Leveling
     /* -------------------------------------------------------------------------------------------------------------------------------- */
+    function calculateCurrentLevelExp(exp, prevLevelReqExp) {
+        return exp - prevLevelReqExp;
+    }
+
+    function calculateCurrentLevelReqExp(nextLevelReqExp, prevLevelReqExp) {
+        return nextLevelReqExp - prevLevelReqExp;
+    }
+
+    function calculateNextLevelReqExp(level) {
+        return ((level * 100) * (level ** 2));
+    }
+
     function levelUpCheck() {
         // Update variables
-        currentLevelExp = gameState.exp - prevLevelReqExp;
-        currentLevelReqExp = nextLevelReqExp - prevLevelReqExp;
+        const newCurrentLevelExp = calculateCurrentLevelExp(gameState.exp, prevLevelReqExp);
+        const newCurrentLevelReqExp = calculateCurrentLevelReqExp(nextLevelReqExp, prevLevelReqExp);
+
+        currentLevelExp = newCurrentLevelExp;
+        currentLevelReqExp = newCurrentLevelReqExp;
 
         updateProgressBar();
 
         if (gameState.exp >= nextLevelReqExp) {
-            gameState.level++;
+            const newLevel = gameState.level + 1;
+            const newNextLevelReqExp = calculateNextLevelReqExp(newLevel);
+
+            setGameState({
+                level: newLevel
+            });
+
             prevLevelReqExp = nextLevelReqExp; // Set Previous Level Req Exp
-            nextLevelReqExp = ((gameState.level * 100) * (gameState.level ** 2)); // ReCalc Next Level Req Exp
+            nextLevelReqExp = newNextLevelReqExp; // ReCalc Next Level Req Exp
+
             updateProgressBar();
             updateTextElements();
             activateNewLevelElements();
@@ -260,7 +329,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }
     }
 
-    var levelUpMsg = [
+    const levelUpMsg = [
         "You've unlocked Freelance Data Farmers! For an upfront cost, you can now hire freelance data miners to help gather data from the web. These freelance workers will automatically produce data over time. Outsourcing baby!",
         "You've unlocked the Upgrades panel! Here you can purchase upgrades for all sorts of things. Check out the tab to the right!",
         "4",
@@ -274,20 +343,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
         document.getElementById('levelUpModal').style.display = "block";
     }
 
-    var modal = document.getElementById("levelUpModal");
-    var btn = document.getElementById("gotItBtn");
-
-    btn.onclick = function () {
-        modal.style.display = "none";
-        unPauseGame();
-    }
-
-    window.onclick = function (event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-            unPauseGame();
-        }
-    }
 
     // Formatting Funtions:
     /* -------------------------------------------------------------------------------------------------------------------------------- */
@@ -350,4 +405,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
             return `${num.toFixed(2)} ${suffixes[i]}`;
         }
     }
+
+    // Force a save on window close
+    window.addEventListener('beforeunload', function (event) {
+        saveGame();
+    });
 });

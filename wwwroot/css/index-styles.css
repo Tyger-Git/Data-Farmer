@@ -15,6 +15,10 @@ body {
     transition: background-color 0.5s ease;
 }
 
+ul {
+    list-style-type: none; /*Bullet point removal from radio list*/
+}
+
 #startButtons {
     display: flex;
     flex-direction: column;
@@ -22,6 +26,7 @@ body {
     align-items: center;
     width: 100%;
 }
+
 
 #newGameBtn {
     width: 150px;
@@ -163,11 +168,14 @@ body.modal-open {
     position: absolute;
     top: 100%; /* Start offscreen */
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%);
     background-color: #fefefe;
     padding: 20px;
     border: 1px solid #888;
-    width: 30%;
+    width: 50%;
+    height: 40%;
+    max-height: 90vh; /* Adjust this value as necessary */
+    overflow-y: auto; /* Enable vertical scrolling */
     text-align: center;
 }
 

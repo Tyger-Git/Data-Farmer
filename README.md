@@ -6,4 +6,4 @@ Dev Notes:
 
 - Sliding animation on upgrades
 - More Save State Work
-- Re-organize more code into modules
+- Issues with Loading/Saving Still
