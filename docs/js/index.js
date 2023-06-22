@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     document.getElementById('startNewGameBtn').addEventListener('click', function () {
         let username = document.getElementById('username').value;
         if (username) {
-            setGameState({ username }); // set the username using setGameState
+            setUserName(username); // Set the username
             saveGame();
             newGameModal.style.display = 'none';
             window.location.href = 'game.html';
@@ -48,7 +48,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
             let username = selectedGame.value; // Extract the username directly from the value of the selected radio button
             let loadedState = loadGame(username);
             if (loadedState) {
-                setGameState({ ...loadedState, username }); // Include username in the game state
+                setUserName(username);
+                setGameState({ ...loadedState });
                 loadGameModal.style.display = 'none';
                 window.location.href = 'game.html';
             } else {

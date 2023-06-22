@@ -59,8 +59,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     // Initial Function Calls
     /* -------------------------------------------------------------------------------------------------------------------------------- */
-    updateAll();
     setGameClock();
+    updateAll();
 
     // Hide Level Elements
     /* -------------------------------------------------------------------------------------------------------------------------------- */
@@ -101,6 +101,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             exp: newExp,
         });
         updateAll();
+        saveGame();
     });
 
     // Cash Out Button
@@ -238,6 +239,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         document.getElementById('cashCounter').innerText = formatCash(gameState.cash);  // Update the Total Cash display
         document.getElementById('autoGenText').innerText = formatBytes(autoGenPerSec);    // Update Auto Gen Text
         document.getElementById('dFarmerTotal').innerText = formatAddSuff(gameState.dFarmers); // Update Data Farmer Total
+        document.getElementById('userNameDisplay').innerText = gameState.userName; // Update User Name Display
     }
 
     function updateUpgradeTextElements() {
@@ -410,4 +412,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
     window.addEventListener('beforeunload', function (event) {
         saveGame();
     });
+
+    // Reloading window
+    window.onload = function () {
+        let userName = gameState.userName;
+        let savedState = loadGame(userName);
+        if (savedState) {
+            setGameState(savedState);
+        }
+    }
 });

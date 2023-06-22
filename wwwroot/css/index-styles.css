@@ -173,7 +173,7 @@ body.modal-open {
     padding: 20px;
     border: 1px solid #888;
     width: 50%;
-    height: 40%;
+    height: 15%;
     max-height: 90vh; /* Adjust this value as necessary */
     overflow-y: auto; /* Enable vertical scrolling */
     text-align: center;

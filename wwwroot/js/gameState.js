@@ -13,18 +13,19 @@ export let gameState = {
 };
 
 // Save game state
-// Save game state
 export function saveGame() {
+    console.log(`Saving game for user: ${gameState.userName}`);
+    gameState.lastSave = new Date(); // Update the date before saving
     let allSavedGames = JSON.parse(localStorage.getItem('savedGames')) || {};
     allSavedGames[gameState.userName] = gameState;
     localStorage.setItem('savedGames', JSON.stringify(allSavedGames));
-    gameState.lastSave = new Date();
+    console.log(`Saved game state: ${JSON.stringify(gameState)}`);
 }
 
 // Load game state
 export function loadGame(username) {
     let allSavedGames = JSON.parse(localStorage.getItem('savedGames')) || {};
-    return allSavedGames[username] || null;
+    return allSavedGames[username] ? Object.assign({}, allSavedGames[username]) : null;
 }
 
 export function setUserName(name) {
@@ -32,5 +33,7 @@ export function setUserName(name) {
 }
 
 export function setGameState(state) {
+    console.log(`Previous state: ${JSON.stringify(gameState)}`);
     Object.assign(gameState, state);
+    console.log(`New state: ${JSON.stringify(gameState)}`);
 }
