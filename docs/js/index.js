@@ -1,6 +1,6 @@
 // Imports
 /* -------------------------------------------------------------------------------------------------------------------------------- */
-import { gameState, setGameState, saveGame, loadGame, setUserName } from './gameState.js';
+import { newGameState, updateGameState, saveGame, loadGame, username, setUserName } from './gameState.js';
 
 // Wrap it up
 document.addEventListener('DOMContentLoaded', (event) => {
@@ -30,14 +30,15 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     // Start new game
     document.getElementById('startNewGameBtn').addEventListener('click', function () {
-        let username = document.getElementById('username').value;
+        setUserName(document.getElementById('usernameInput').value);
+        console.log("username :" + username);
         if (username) {
-            setUserName(username); // Set the username
-            saveGame();
+            newGameState();
+            console.log("username :" + username);
             newGameModal.style.display = 'none';
             window.location.href = 'game.html';
         } else {
-            // Handle empty username case
+            alert("Please enter a username!");
         }
     });
 
@@ -45,11 +46,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
     document.getElementById('loadSavedGameBtn').addEventListener('click', function () {
         let selectedGame = document.querySelector('input[name="savedGame"]:checked');
         if (selectedGame) {
-            let username = selectedGame.value; // Extract the username directly from the value of the selected radio button
+            setUserName(selectedGame.value); // Extract the username directly from the value of the selected radio button
             let loadedState = loadGame(username);
             if (loadedState) {
-                setUserName(username);
-                setGameState({ ...loadedState });
+                updateGameState({ ...loadedState });
                 loadGameModal.style.display = 'none';
                 window.location.href = 'game.html';
             } else {
@@ -67,9 +67,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
         if (selectedGame) {
             let confirmResult = window.confirm('Are you sure you want to delete this save?');
             if (confirmResult) {
-                let username = selectedGame.value; // Extract the username directly from the value of the selected radio button
+                let usernameToDelete = selectedGame.value; // Extract the username directly from the value of the selected radio button
                 let savedGames = JSON.parse(localStorage.getItem('savedGames')) || {};
-                delete savedGames[username];
+                delete savedGames[usernameToDelete];
                 localStorage.setItem('savedGames', JSON.stringify(savedGames));
                 updateSavedGamesList(); // Update list after a game is deleted
             }

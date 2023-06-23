@@ -1,13 +1,12 @@
 // Imports
-import { gameState, setGameState,  saveGame, loadGame } from './gameState.js';
-// Testing
-// Testing Git Hook
+import { gameState, updateGameState,  saveGame, loadGame, username, currentUser } from './gameState.js';
+
+// Load game state from local storage
+/* -------------------------------------------------------------------------------------------------------------------------------- */
+loadGame(currentUser);
 
 // Wrap the code in a DOMContentLoaded event listener
 document.addEventListener('DOMContentLoaded', (event) => {
-
-    // Load game state from local storage
-    /* -------------------------------------------------------------------------------------------------------------------------------- */
 
     // Early Initializations
     /* -------------------------------------------------------------------------------------------------------------------------------- */
@@ -39,7 +38,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             if (!gamePaused) {
                 const newBytes = gameState.bytes + (gameState.dFarmers * (gameState.dFarmerUpgradeLevel ** 3));
                 const newExp = gameState.exp + (gameState.dFarmers * (gameState.dFarmerUpgradeLevel ** 3));
-                setGameState({
+                updateGameState({
                     bytes: newBytes,
                     exp: newExp,
                 });
@@ -96,7 +95,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     document.getElementById('collect-btn').addEventListener('click', function () {
         const newBytes = gameState.bytes + 10;
         const newExp = gameState.exp + 10;
-        setGameState({
+        updateGameState({
             bytes: newBytes,
             exp: newExp,
         });
@@ -108,7 +107,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     document.getElementById('cashout-btn').addEventListener('click', function () {
         let cashToAdd = (gameState.bytes * gameState.cashOutMulti);
         let newCash = gameState.cash + cashToAdd;
-        setGameState({
+        updateGameState({
             cash: newCash,
             bytes: 0,
         });
@@ -131,7 +130,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             this.disabled = true;
         }
 
-        setGameState({
+        updateGameState({
             cash: newCash,
             dFarmerSpeedLevel: newSpeedLevel,
             dFarmerTickIncrement: newTickIncrement,
@@ -155,7 +154,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             this.disabled = true;
         }
 
-        setGameState({
+        updateGameState({
             cash: newCash,
             dFarmerUpgradeLevel: newUpgradeLevel,
         });
@@ -179,7 +178,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     document.getElementById('buyDFarmer1-btn').addEventListener('click', function () {
         const newDFarmers = gameState.dFarmers + 1;
         const newAutoGenPerSec = calculateAutoGenPerSec(newDFarmers, gameState.dFarmerTickIncrement);
-        setGameState({
+        updateGameState({
             dFarmers: newDFarmers
         });
         autoGenPerSec = newAutoGenPerSec; // ReCalc Auto Gen
@@ -190,7 +189,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     document.getElementById('buyDFarmer10-btn').addEventListener('click', function () {
         const newDFarmers = gameState.dFarmers + 10;
         const newAutoGenPerSec = calculateAutoGenPerSec(newDFarmers, gameState.dFarmerTickIncrement);
-        setGameState({
+        updateGameState({
             dFarmers: newDFarmers
         });
         autoGenPerSec = newAutoGenPerSec; // ReCalc Auto Gen
@@ -201,7 +200,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     document.getElementById('buyDFarmer100-btn').addEventListener('click', function () {
         const newDFarmers = gameState.dFarmers + 100;
         const newAutoGenPerSec = calculateAutoGenPerSec(newDFarmers, gameState.dFarmerTickIncrement);
-        setGameState({
+        updateGameState({
             dFarmers: newDFarmers
         });
         autoGenPerSec = newAutoGenPerSec; // ReCalc Auto Gen
@@ -306,7 +305,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             const newLevel = gameState.level + 1;
             const newNextLevelReqExp = calculateNextLevelReqExp(newLevel);
 
-            setGameState({
+            updateGameState({
                 level: newLevel
             });
 
@@ -414,11 +413,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
 
     // Reloading window
-    window.onload = function () {
-        let userName = gameState.userName;
-        let savedState = loadGame(userName);
-        if (savedState) {
-            setGameState(savedState);
-        }
-    }
+    window.onunload = function () { saveGame(); }
+    window.onload = function () { loadGame(currentUser); }
+
 });
+
+//End of game.js

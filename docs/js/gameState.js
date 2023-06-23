@@ -1,5 +1,8 @@
+export let username;
+export let currentUser = localStorage.getItem('currentUser');
+
 export let gameState = {
-    userName: "",
+    userName: username,
     bytes: 0,
     cash: 0,
     cashOutMulti: .0015,
@@ -11,6 +14,18 @@ export let gameState = {
     exp: 0,
     lastSave: new Date()
 };
+
+export function setUserName(name) {
+    username = name;
+    gameState.userName = name;
+    currentUser = name;
+    saveCurrentUser();
+}
+
+export function saveCurrentUser() {
+    localStorage.setItem('currentUser', currentUser);
+    console.log(`Current User Saved: ${currentUser}`);
+}
 
 // Save game state
 export function saveGame() {
@@ -28,12 +43,23 @@ export function loadGame(username) {
     return allSavedGames[username] ? Object.assign({}, allSavedGames[username]) : null;
 }
 
-export function setUserName(name) {
-    gameState.userName = name;
+export function newGameState() {
+    Object.assign(gameState, {
+        bytes: 0,
+        cash: 0,
+        cashOutMulti: .0015,
+        dFarmers: 0,
+        dFarmerSpeedLevel: 1,
+        dFarmerUpgradeLevel: 1,
+        dFarmerTickIncrement: 1000,
+        level: 1,
+        exp: 0,
+        lastSave: new Date()
+    });
+    saveGame();
+    console.log(`New game state created: ${JSON.stringify(gameState)}`);
 }
 
-export function setGameState(state) {
-    console.log(`Previous state: ${JSON.stringify(gameState)}`);
+export function updateGameState(state) {
     Object.assign(gameState, state);
-    console.log(`New state: ${JSON.stringify(gameState)}`);
 }

@@ -10,4 +10,4 @@ Dev Notes:
 
 -Reload bugged to level up?!?
 -gameStates are death
--Rework gameStates to a UpdateGameState, and a SetNewGameState
+-Rework gameStates with currentUser localSave
