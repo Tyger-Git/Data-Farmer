@@ -120,11 +120,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
     document.getElementById('dFarmerSpeedUpgrade-btn').addEventListener('click', function () {
         const newCash = gameState.cash - dFarmerSpeedNextUpgradeCost;
         const newSpeedLevel = gameState.dFarmerSpeedLevel + 1;
-        const newTickIncrement = 1000 / newSpeedLevel;
+        const newTickIncrement = 1000 - ((newSpeedLevel - 1) * 100);
         let newSpeedUpgradeAmnt;
 
         if (newSpeedLevel < 10) {
-            newSpeedUpgradeAmnt = (1000 / (newSpeedLevel + 1)) / 1000;
+            newSpeedUpgradeAmnt = ((newSpeedLevel + 1) * 100) / 1000;
         } else {
             newSpeedUpgradeAmnt = 0;
             // Turn button off if max level
