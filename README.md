@@ -5,6 +5,8 @@ A Personal Project
 Dev Notes:
 
 - Sliding animation on upgrades
--Sliding animation on modals glitchy
--Reload bugged to level up?!?
--Exp Bar resetting to zero issue
+- Byte tick rate needs adjusted
+- Displaying tick rate level up button
+- Redo upgrade algorithms
+- Reload bugged to level up?!?
+- Exp Bar resetting to zero issue
