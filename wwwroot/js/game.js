@@ -4,6 +4,7 @@ import { gameState, updateGameState,  saveGame, loadGame, username, currentUser 
 // Load game state from local storage
 /* -------------------------------------------------------------------------------------------------------------------------------- */
 loadGame(currentUser);
+console.log(gameState.userName);
 
 // Wrap the code in a DOMContentLoaded event listener
 document.addEventListener('DOMContentLoaded', (event) => {

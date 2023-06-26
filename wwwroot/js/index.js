@@ -1,6 +1,6 @@
 // Imports
 /* -------------------------------------------------------------------------------------------------------------------------------- */
-import { newGameState, updateGameState, saveGame, loadGame, username, setUserName } from './gameState.js';
+import { newGameState, updateGameState, gameState, loadGame, username, setUserName } from './gameState.js';
 
 // Wrap it up
 document.addEventListener('DOMContentLoaded', (event) => {
@@ -47,17 +47,17 @@ document.addEventListener('DOMContentLoaded', (event) => {
         let selectedGame = document.querySelector('input[name="savedGame"]:checked');
         if (selectedGame) {
             setUserName(selectedGame.value); // Extract the username directly from the value of the selected radio button
-            let loadedState = loadGame(username);
-            if (loadedState) {
-                updateGameState({ ...loadedState });
+            loadGame(username);
+            console.log(gameState);
+            if (gameState.userName === username) {
+                updateGameState({ ...gameState });
                 loadGameModal.style.display = 'none';
                 window.location.href = 'game.html';
             } else {
-                // Handle case where save does not exist
+                alert("No saved game state found for this user. See console for details.");
             }
         } else {
-            // Handle case where no save is selected
-            // Show an error message or otherwise notify the user
+            alert("Please select a saved game!");
         }
     });
 

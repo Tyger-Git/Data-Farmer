@@ -19,6 +19,7 @@ export function setUserName(name) {
     username = name;
     gameState.userName = name;
     currentUser = name;
+    console.log("Usernames set to: " + name);
     saveCurrentUser();
 }
 
@@ -39,12 +40,20 @@ export function saveGame() {
 
 // Load game state
 export function loadGame(username) {
+    console.log(`Loading game for user: ${username}. Current user: ${currentUser}`);
     let allSavedGames = JSON.parse(localStorage.getItem('savedGames')) || {};
-    return allSavedGames[username] ? Object.assign({}, allSavedGames[username]) : null;
+    if (allSavedGames[username]) {
+        Object.assign(gameState, allSavedGames[username]);
+        console.log(`Loaded game state: ${JSON.stringify(gameState)}`);
+    } else {
+        console.log('No saved game state found for this user.');
+        alert("No saved game state found for this user. See console for details.");
+    }
 }
 
 export function newGameState() {
     Object.assign(gameState, {
+        userName: currentUser,
         bytes: 0,
         cash: 0,
         cashOutMulti: .0015,
