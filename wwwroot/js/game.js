@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         let newSpeedUpgradeAmnt;
 
         if (newSpeedLevel < 10) {
-            newSpeedUpgradeAmnt = ((newSpeedLevel + 1) * 100) / 1000;
+            newSpeedUpgradeAmnt = ((newSpeedLevel - 1) * 100) / 1000;
         } else {
             newSpeedUpgradeAmnt = 0;
             // Turn button off if max level
@@ -239,7 +239,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         document.getElementById('cashCounter').innerText = formatCash(gameState.cash);  // Update the Total Cash display
         document.getElementById('autoGenText').innerText = formatBytes(autoGenPerSec);    // Update Auto Gen Text
         document.getElementById('dFarmerTotal').innerText = formatAddSuff(gameState.dFarmers); // Update Data Farmer Total
-        document.getElementById('userNameDisplay').innerText = gameState.userName; // Update User Name Display
+        document.getElementById('userNameDisplay').innerText = `Logged in as : ${gameState.userName}`; // Update User Name Display
     }
 
     function updateUpgradeTextElements() {
@@ -416,6 +416,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
     // Reloading window
     window.onunload = function () { saveGame(); }
     window.onload = function () { loadGame(currentUser); }
+
+    // Log out button
+    document.getElementById('logout-Btn').addEventListener('click', function () {
+        saveGame();
+        window.location.href = "index.html";
+    });
 
 });
 

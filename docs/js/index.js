@@ -8,11 +8,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
     let newGameModal = document.getElementById('newGameModal');
     let loadGameModal = document.getElementById('loadGameModal');
 
-    //Handler for Skip Login button (DEV SKIP)
-    document.getElementById('skip-login').addEventListener('click', function () {
-        window.location.href = 'game.html';
-    });
-
     // New Game Modal
     document.getElementById('newGameBtn').addEventListener('click', function () {
         document.body.classList.add('modal-open');
