@@ -15,9 +15,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
     let maxCashOut = formatCash(gameState.bytes * gameState.cashOutMulti);
     let autoGenPerSec = gameState.dFarmers / (gameState.dFarmerTickIncrement / 1000); // Per sec calc
     let nextLevelReqExp = ((gameState.level * 100) * (gameState.level ** 3));
-    let prevLevelReqExp = 0;
-    let currentLevelExp = gameState.exp - prevLevelReqExp;
-    let currentLevelReqExp = nextLevelReqExp - prevLevelReqExp;
     let progressPercentage = (currentLevelExp / currentLevelReqExp) * 100; // Calc Progress Percentage
     let dFarmerSpeedNextUpgradeCost = (gameState.dFarmerSpeedLevel ** 2) * 10;
     let dFarmerSpeedNextUpgradeAmnt = (1000 / (gameState.dFarmerSpeedLevel + 1)) / 1000;
@@ -225,7 +222,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     // Updating Functions
     /* -------------------------------------------------------------------------------------------------------------------------------- */
     function updateProgressBar() {
-        progressPercentage = (currentLevelExp / currentLevelReqExp) * 100; // ReCalc Progress Percentage
+        progressPercentage = (gameState.exp / nextLevelReqExp) * 100; // ReCalc Progress Percentage
         document.getElementById('expBar').style.width = progressPercentage + "%"; // Update Exp Bar
         document.getElementById('expBar').setAttribute('aria-valuenow', progressPercentage); // Update Exp Bar
     }
@@ -280,38 +277,20 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     // Leveling
     /* -------------------------------------------------------------------------------------------------------------------------------- */
-    function calculateCurrentLevelExp(exp, prevLevelReqExp) {
-        return exp - prevLevelReqExp;
-    }
-
-    function calculateCurrentLevelReqExp(nextLevelReqExp, prevLevelReqExp) {
-        return nextLevelReqExp - prevLevelReqExp;
-    }
-
-    function calculateNextLevelReqExp(level) {
-        return ((level * 100) * (level ** 2));
-    }
-
     function levelUpCheck() {
-        // Update variables
-        const newCurrentLevelExp = calculateCurrentLevelExp(gameState.exp, prevLevelReqExp);
-        const newCurrentLevelReqExp = calculateCurrentLevelReqExp(nextLevelReqExp, prevLevelReqExp);
-
-        currentLevelExp = newCurrentLevelExp;
-        currentLevelReqExp = newCurrentLevelReqExp;
 
         updateProgressBar();
 
         if (gameState.exp >= nextLevelReqExp) {
             const newLevel = gameState.level + 1;
-            const newNextLevelReqExp = calculateNextLevelReqExp(newLevel);
-
+            const newExp = gameState.exp - nextLevelReqExp;
+            
             updateGameState({
-                level: newLevel
+                level: newLevel,
+                exp: newExp
             });
 
-            prevLevelReqExp = nextLevelReqExp; // Set Previous Level Req Exp
-            nextLevelReqExp = newNextLevelReqExp; // ReCalc Next Level Req Exp
+            nextLevelReqExp = ((gameState.level * 100) * (gameState.level ** 3));; // ReCalc Next Level Req Exp
 
             updateProgressBar();
             updateTextElements();
