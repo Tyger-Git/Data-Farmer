@@ -8,4 +8,3 @@ Dev Notes:
 - Displaying tick rate level up button
 - Redo upgrade algorithms
 - Reload bugged to level up?!?
-- Exp Bar resetting to zero issue
