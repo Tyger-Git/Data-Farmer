@@ -16,9 +16,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
     let autoGenPerSec = gameState.dFarmers / (gameState.dFarmerTickIncrement / 1000); // Per sec calc
     let nextLevelReqExp = ((gameState.level * 100) * (gameState.level ** 3));
     let progressPercentage = (gameState.exp / nextLevelReqExp) * 100; // Calc Progress Percentage
-    let dFarmerSpeedNextUpgradeCost = (gameState.dFarmerSpeedLevel ** 2) * 10;
-    let dFarmerSpeedNextUpgradeAmnt = (1000 / (gameState.dFarmerSpeedLevel + 1)) / 1000;
-    let dFarmerLevelNextUpgradeCost = (gameState.dFarmerUpgradeLevel ** 2) * 10;;
+    let dFarmerSpeedNextUpgradeCost = (gameState.dFarmerSpeedLevel ** 2) * 5;
+    let dFarmerSpeedCurrentAmnt = ((gameState.dFarmerSpeedLevel - 1) / 10 ) + 1;
+    let dFarmerSpeedNextUpgradeAmnt = (gameState.dFarmerSpeedLevel / 10 ) + 1;
+    let dFarmerLevelNextUpgradeCost = (gameState.dFarmerUpgradeLevel ** 2) * 5;;
     let dFarmerLevelNextUpgradeAmnt = (gameState.dFarmerUpgradeLevel + 1) ** 3;
 
     
@@ -91,8 +92,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
     // Collect Button
     document.getElementById('collect-btn').addEventListener('click', function () {
-        const newBytes = gameState.bytes + 10;
-        const newExp = gameState.exp + 10;
+        const newBytes = gameState.bytes + 100; // Testing
+        const newExp = gameState.exp + 100;  // Testing
         updateGameState({
             bytes: newBytes,
             exp: newExp,
@@ -117,13 +118,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
     document.getElementById('dFarmerSpeedUpgrade-btn').addEventListener('click', function () {
         const newCash = gameState.cash - dFarmerSpeedNextUpgradeCost;
         const newSpeedLevel = gameState.dFarmerSpeedLevel + 1;
-        const newTickIncrement = 1000 - ((newSpeedLevel - 1) * 100);
-        let newSpeedUpgradeAmnt;
+        const newTickIncrement = 1000 - (gameState.dFarmerSpeedLevel * 100);
 
         if (newSpeedLevel < 10) {
-            newSpeedUpgradeAmnt = ((newSpeedLevel - 1) * 100) / 1000;
+            dFarmerSpeedCurrentAmnt = dFarmerSpeedNextUpgradeAmnt;
+            dFarmerSpeedNextUpgradeAmnt = (newSpeedLevel / 10) + 1;
         } else {
-            newSpeedUpgradeAmnt = 0;
+            dFarmerSpeedNextUpgradeAmnt = 2;
             // Turn button off if max level
             this.disabled = true;
         }
@@ -134,7 +135,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
             dFarmerTickIncrement: newTickIncrement,
         });
 
-        dFarmerSpeedNextUpgradeAmnt = newSpeedUpgradeAmnt;
         updateAll();
         setGameClock();
         saveGame();
@@ -242,10 +242,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
     function updateUpgradeTextElements() {
 
         //DFarmer Upgrade Text
-        document.getElementById('dFarmerSpeedLevelText').innerText = `Data Farmer Speed Level : ${gameState.dFarmerSpeedLevel} / 10`; // Update Data Farmer Speed Level
+        document.getElementById('dFarmerSpeedLevelText').innerText = `Data Farmer Speed Level : ${gameState.dFarmerSpeedLevel} / 10 [x${dFarmerSpeedCurrentAmnt}]`; // Update Data Farmer Speed Level
         document.getElementById('dFarmerUpgradeLevelText').innerText = `Data Farmer Upgrade Level : ${gameState.dFarmerUpgradeLevel} / 10`; // Update Data Farmer Upgrade Level
         if (gameState.dFarmerSpeedLevel < 10 && gameState.dFarmers > 0) {
-            document.getElementById('dFarmerSpeedUpgrade-btn').innerText = `Increase Speed : ${dFarmerSpeedNextUpgradeAmnt} sec tick rate | Cost : ${formatCash(dFarmerSpeedNextUpgradeCost)}`; // Update Data Farmer Speed Upgrade Cost
+            document.getElementById('dFarmerSpeedUpgrade-btn').innerText = `Increase Speed : x${dFarmerSpeedNextUpgradeAmnt} | Cost : ${formatCash(dFarmerSpeedNextUpgradeCost)}`; // Update Data Farmer Speed Upgrade Cost
         } else if (gameState.dFarmerSpeedLevel === 10 && gameState.dFarmers > 0) {
             document.getElementById('dFarmerSpeedUpgrade-btn').innerText = `Max Speed`; // Maxxed Out
         } else {
@@ -300,13 +300,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
 
     function activateNewLevelElements() {
-        switch (gameState.level) {
-            case 2:
-                document.getElementById('dFarmers').style.display = "flex";
-                break;
-            case 3:
-                document.getElementById('toggleUpgradesPanelBtn').style.display = "block";
-                break;
+        if (gameState.level >= 2) {
+            document.getElementById('dFarmers').style.display = "flex";
+        }
+        if (gameState.level >= 3) {
+            document.getElementById('toggleUpgradesPanelBtn').style.display = "block";
         }
     }
 
@@ -392,8 +390,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
         saveGame();
     });
 
-    // Reloading window
-    window.onunload = function () { saveGame(); }
+    // Unloading Window
+    window.beforeunload = function () { saveGame(); }
+
+    // Loading Window
     window.onload = function () { loadGame(currentUser); }
 
     // Log out button
