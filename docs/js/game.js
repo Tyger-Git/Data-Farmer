@@ -135,6 +135,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
             dFarmerTickIncrement: newTickIncrement,
         });
 
+        autoGenPerSec = calculateAutoGenPerSec(); // ReCalc Auto Gen
+
         updateAll();
         setGameClock();
         saveGame();
@@ -157,6 +159,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
             dFarmerUpgradeLevel: newUpgradeLevel,
         });
 
+        autoGenPerSec = calculateAutoGenPerSec(); // ReCalc Auto Gen
+
         updateAll();
         saveGame();
     });
@@ -169,28 +173,26 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     // Data Farmers
     /* -------------------------------------------------------------------------------------------------------------------------------- */
-    function calculateAutoGenPerSec(dFarmers, dFarmerTickIncrement) {
-        return dFarmers / (dFarmerTickIncrement / 1000);
+    function calculateAutoGenPerSec() {
+        return Math.round((gameState.dFarmers * (gameState.dFarmerUpgradeLevel ** 3)) / (gameState.dFarmerTickIncrement / 1000));
     }
 
     document.getElementById('buyDFarmer1-btn').addEventListener('click', function () {
         const newDFarmers = gameState.dFarmers + 1;
-        const newAutoGenPerSec = calculateAutoGenPerSec(newDFarmers, gameState.dFarmerTickIncrement);
         updateGameState({
             dFarmers: newDFarmers
         });
-        autoGenPerSec = newAutoGenPerSec; // ReCalc Auto Gen
+        autoGenPerSec = calculateAutoGenPerSec(); // ReCalc Auto Gen
         updateAll();
         saveGame();
     });
 
     document.getElementById('buyDFarmer10-btn').addEventListener('click', function () {
         const newDFarmers = gameState.dFarmers + 10;
-        const newAutoGenPerSec = calculateAutoGenPerSec(newDFarmers, gameState.dFarmerTickIncrement);
         updateGameState({
             dFarmers: newDFarmers
         });
-        autoGenPerSec = newAutoGenPerSec; // ReCalc Auto Gen
+        autoGenPerSec = calculateAutoGenPerSec(); // ReCalc Auto Gen
         updateAll();
         saveGame();
     });
