@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     /* -------------------------------------------------------------------------------------------------------------------------------- */
     let gamePaused = false;
     let maxCashOut = formatCash(gameState.bytes * gameState.cashOutMulti);
-    let autoGenPerSec = gameState.dFarmers / (gameState.dFarmerTickIncrement / 1000); // Per sec calc
+    let autoGenPerSec = calculateAutoGenPerSec(); // Per sec calc
     let nextLevelReqExp = ((gameState.level * 100) * (gameState.level ** 3));
     let progressPercentage = (gameState.exp / nextLevelReqExp) * 100; // Calc Progress Percentage
     let dFarmerSpeedNextUpgradeCost = (gameState.dFarmerSpeedLevel ** 2) * 5;
@@ -199,11 +199,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     document.getElementById('buyDFarmer100-btn').addEventListener('click', function () {
         const newDFarmers = gameState.dFarmers + 100;
-        const newAutoGenPerSec = calculateAutoGenPerSec(newDFarmers, gameState.dFarmerTickIncrement);
         updateGameState({
             dFarmers: newDFarmers
         });
-        autoGenPerSec = newAutoGenPerSec; // ReCalc Auto Gen
+        autoGenPerSec = calculateAutoGenPerSec(); // ReCalc Auto Gen
         updateAll();
         saveGame();
     });
@@ -236,7 +235,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
         maxCashOut = formatCash(gameState.bytes * gameState.cashOutMulti); // ReCalc Cash Out Value
         document.getElementById("cashOutVal").innerText = maxCashOut;   // Update the Cash Out Value
         document.getElementById('cashCounter').innerText = formatCash(gameState.cash);  // Update the Total Cash display
-        document.getElementById('autoGenText').innerText = formatBytes(autoGenPerSec);    // Update Auto Gen Text
+        document.getElementById('autoGenText').innerText = toString(formatBytes(autoGenPerSec));    // Update Auto Gen Text
+        console.log(autoGenPerSec);
         document.getElementById('dFarmerTotal').innerText = formatAddSuff(gameState.dFarmers); // Update Data Farmer Total
         document.getElementById('userNameDisplay').innerText = `Logged in as : ${gameState.userName}`; // Update User Name Display
     }
