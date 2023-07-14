@@ -235,7 +235,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         maxCashOut = formatCash(gameState.bytes * gameState.cashOutMulti); // ReCalc Cash Out Value
         document.getElementById("cashOutVal").innerText = maxCashOut;   // Update the Cash Out Value
         document.getElementById('cashCounter').innerText = formatCash(gameState.cash);  // Update the Total Cash display
-        document.getElementById('autoGenText').innerText = toString(formatBytes(autoGenPerSec));    // Update Auto Gen Text
+        document.getElementById('autoGenText').innerText = formatBytes(autoGenPerSec);    // Update Auto Gen Text
         console.log(autoGenPerSec);
         document.getElementById('dFarmerTotal').innerText = formatAddSuff(gameState.dFarmers); // Update Data Farmer Total
         document.getElementById('userNameDisplay').innerText = `Logged in as : ${gameState.userName}`; // Update User Name Display
