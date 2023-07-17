@@ -8,9 +8,9 @@
 </head>
 <body>
     <div id="counters">
-        <p id="farmGenerationText">Farming <span id="autoGenText">0</span> bytes of data per second</p>
+        <p id="farmGenerationText">Farming <span id="autoGenText"></span> of data per second</p>
         <h2 id="bCounter">0 Bytes</h2>
-        <button id="collect-btn" class="std-btn">Farm 1 Byte</button>
+        <button id="collect-btn" class="std-btn">Collect Data (+ <span id="collectAmount"></span>)</button>
         <button id="cashout-btn" class="std-btn">Sell Data : <span id="cashOutVal"></span></button>
         <h3><span id="cashCounter"></span></h3>
         <p id="expText">
@@ -27,12 +27,15 @@
     </div>
     <button id="toggleUpgradesPanelBtn" class="std-btn">Upgrades</button>
     <div id="upgradesPanel">
-        <div id="dFarmerUpgradeDiv">
+        <div id="dFarmerUpgradeDiv" class="upgradeDiv">
             <p id="dFarmerSpeedLevelText"></p>
             <button id="dFarmerSpeedUpgrade-btn" class="std-btn"></button>
             <p id="dFarmerUpgradeLevelText"></p>
             <button id="dFarmerLevelUpgrade-btn" class="std-btn"></button>
-            <!--<p id="dFarmerUpgradeDivLabel">Data Farmer Upgrades</p>    FIX ME-->
+        </div>
+        <div id="collectButtonUpgradeDiv" class="upgradeDiv">
+            <p id="collectButtonLevelText"></p>
+            <button id="collectButtonUpgrade-btn" class="std-btn"></button>
         </div>
     </div>
     <div id="dFarmers">
@@ -51,6 +54,14 @@
             <p id="levelUpModalHeader"></p>
             <p id="levelUpModalText"></p>
             <button id="gotItBtn" class="std-btn">OK</button>
+        </div>
+    </div>
+    <!--Initial Intro-->
+    <div id="introModal" class="modal">
+        <div class="modal-content">
+            <p id="introModalHeader">Introduction</p>
+            <p id="introModalText">Welcome to Data Farmer. You have just finished programming a type of malware that is able to traverse the internet of things and gather data. What will you do with this powerful tool?</p>
+            <button id="letsGetStarted" class="std-btn">Let's Get Started</button>
         </div>
     </div>
     <script type="module" src="js\game.js"></script>

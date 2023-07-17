@@ -83,10 +83,18 @@ body {
     text-align: center;
 }
 
+.upgradeDiv {
+    background-color: #111317;
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #59626c;
+    width: 500px;
+    height: 220px;
+}
+
 
 /* Upgrades Panel */
 /* -------------------------------------------------------------------------------------------------------------------------------------- */
-
 #upgradesPanel {
     position: fixed;
     border: 1px solid #59626c;
@@ -108,12 +116,6 @@ body {
     transform: rotate(-90deg) translate(0%, 290%);
     padding: 10px;
     transition: 0.5s; /* The button will take 0.5 seconds to slide in or out */
-}
-
-#dFarmerUpgradeDivLabel {
-    color: #fff;
-    position: fixed;
-    transform: rotate(-90deg) translate(60%, -300%);
 }
 
 #dFarmerSpeedUpgrade-btn {
@@ -143,14 +145,24 @@ body {
     margin-top: 15px;
     color: #fff;
 }
-#dFarmerUpgradeDiv {
-    background-color: #111317;
-    text-align: center;
-    padding: 10px;
-    border: 1px solid #59626c;
-    width: 500px;
-    height: 220px;
+
+#collectButtonLevelText {
+    margin-top: 10px;
+    color: #fff;
 }
+
+#collectButtonUpgrade-btn {
+    width: 400px;
+    height: 40px;
+    font-size: 1em;
+}
+
+#collectButtonUpgrade-btn:disabled {
+    background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
+}
+
 
 /* Counter Div */
 /* -------------------------------------------------------------------------------------------------------------------------------------- */
@@ -267,6 +279,12 @@ body {
 
 /* Leveling */
 #levelUpModalHeader {
+    font-size: 1.5em;
+    color: #fff;
+    margin: 0;
+}
+
+#introModalHeader {
     font-size: 1.5em;
     color: #fff;
     margin: 0;

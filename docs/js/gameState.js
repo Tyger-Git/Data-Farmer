@@ -10,6 +10,7 @@ export let gameState = {
     dFarmerSpeedLevel: 1,
     dFarmerUpgradeLevel: 1,
     dFarmerTickIncrement: 1100,
+    collectDataUpgradeLevel: 1,
     level: 1,
     exp: 0,
     lastSave: new Date()

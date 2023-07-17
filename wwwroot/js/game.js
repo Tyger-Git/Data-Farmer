@@ -1,5 +1,5 @@
 // Imports
-import { gameState, updateGameState,  saveGame, loadGame, username, currentUser } from './gameState.js';
+import { gameState, updateGameState,  saveGame, loadGame, currentUser } from './gameState.js';
 
 // Load game state from local storage
 /* -------------------------------------------------------------------------------------------------------------------------------- */
@@ -17,10 +17,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
     let nextLevelReqExp = ((gameState.level * 100) * (gameState.level ** 3));
     let progressPercentage = (gameState.exp / nextLevelReqExp) * 100; // Calc Progress Percentage
     let dFarmerSpeedNextUpgradeCost = (gameState.dFarmerSpeedLevel ** 2) * 5;
-    let dFarmerSpeedCurrentAmnt = ((gameState.dFarmerSpeedLevel - 1) / 10 ) + 1;
-    let dFarmerSpeedNextUpgradeAmnt = (gameState.dFarmerSpeedLevel / 10 ) + 1;
+    let dFarmerSpeedCurrentAmnt = ((gameState.dFarmerSpeedLevel - 1) / 10) + 1;
+    let dFarmerSpeedNextUpgradeAmnt = (gameState.dFarmerSpeedLevel / 10) + 1;
     let dFarmerLevelNextUpgradeCost = (gameState.dFarmerUpgradeLevel ** 2) * 5;;
     let dFarmerLevelNextUpgradeAmnt = (gameState.dFarmerUpgradeLevel + 1) ** 3;
+    let collectDataNextUpgradeCost = (gameState.collectDataUpgradeLevel ** 2) * 5;
+    let collectDataNextUpgradeAmnt = (gameState.collectDataUpgradeLevel + 1) ** 3;
+    let collectDataAmount = gameState.collectDataUpgradeLevel ** 3;
 
     // Byte Formatting Array
     const units = [
@@ -36,7 +39,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         { name: 'RB', limit: 1000 ** 10 },
         { name: 'QB', limit: Number.MAX_SAFE_INTEGER }
     ];
-    
+
     // Clock
     /* -------------------------------------------------------------------------------------------------------------------------------- */
     var gameClock;
@@ -74,13 +77,16 @@ document.addEventListener('DOMContentLoaded', (event) => {
     /* -------------------------------------------------------------------------------------------------------------------------------- */
     document.getElementById('dFarmers').style.display = "none";
     document.getElementById('toggleUpgradesPanelBtn').style.display = "none"
-    document.getElementById('dFarmerSpeedUpgrade-btn').disabled = true;
-    document.getElementById('dFarmerLevelUpgrade-btn').disabled = true;
+    if (gameState.dFarmerUpgradeLevel === 11) { document.getElementById('dFarmerSpeedUpgrade-btn').disabled = true; }
+    if (gameState.dFarmerSpeedLevel === 11) { document.getElementById('dFarmerLevelUpgrade-btn').disabled = true; }
+    if (gameState.collectDataUpgradeLevel === 11) { document.getElementById('collectButtonUpgrade-btn').disabled = true; }
+    
 
     // Initial Function Calls
     /* -------------------------------------------------------------------------------------------------------------------------------- */
     setGameClock();
     updateAll();
+    if (gameState.level === 1 && gameState.bytes === 0) { introModal(); } // Intro Modal
 
 
     // Buttons
@@ -101,8 +107,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     // Collect Button
     document.getElementById('collect-btn').addEventListener('click', function () {
-        const newBytes = gameState.bytes + 100; // Testing
-        const newExp = gameState.exp + 100;  // Testing
+        const newBytes = gameState.bytes + collectDataAmount;
+        const newExp = gameState.exp + collectDataAmount;
         updateGameState({
             bytes: newBytes,
             exp: newExp,
@@ -173,9 +179,34 @@ document.addEventListener('DOMContentLoaded', (event) => {
         saveGame();
     });
 
+    // Upgrade collectLevel
+    document.getElementById('collectButtonUpgrade-btn').addEventListener('click', function () {
+        const newCash = gameState.cash - collectDataNextUpgradeCost;
+        const newCollectLevel = gameState.collectDataUpgradeLevel + 1;
+        if (newCollectLevel < 11) {
+            collectDataNextUpgradeAmnt = (newCollectLevel + 1) ** 3;
+        } else {
+            // Turn button off if max level
+            this.disabled = true;
+        }
+        updateGameState({
+            cash: newCash,
+            collectDataUpgradeLevel: newCollectLevel,
+        });
+        collectDataAmount = gameState.collectDataUpgradeLevel ** 3;
+        updateAll();
+        saveGame();
+    });
+
     // LevelUp Button "Got It"
     document.getElementById("gotItBtn").onclick = function () {
         document.getElementById("levelUpModal").style.display = "none";
+        unPauseGame();
+    }
+
+    // Intro Button "letsGetStarted"
+    document.getElementById("letsGetStarted").onclick = function () {
+        document.getElementById("introModal").style.display = "none";
         unPauseGame();
     }
 
@@ -252,29 +283,39 @@ document.addEventListener('DOMContentLoaded', (event) => {
         document.getElementById('autoGenText').innerText = formatBytes(autoGenPerSec);    // Update Auto Gen Text
         document.getElementById('dFarmerTotal').innerText = formatAddSuff(gameState.dFarmers); // Update Data Farmer Total
         document.getElementById('userNameDisplay').innerText = `Loaded Game : ${gameState.userName}`; // Update User Name Display
+        document.getElementById('collectAmount').innerText = formatBytes(collectDataAmount);
     }
 
     function updateUpgradeTextElements() {
         // Some Re-Calcs
         dFarmerSpeedNextUpgradeCost = (gameState.dFarmerSpeedLevel ** 2) * 5;
         dFarmerLevelNextUpgradeCost = (gameState.dFarmerUpgradeLevel ** 2) * 5;
+        collectDataNextUpgradeCost = (gameState.collectDataUpgradeLevel ** 2) * 5;
 
         // DFarmer Upgrade Text
         document.getElementById('dFarmerSpeedLevelText').innerText = `Data Farmer Speed Level : ${gameState.dFarmerSpeedLevel - 1} / 10 [ x ${dFarmerSpeedCurrentAmnt} ]`; // Update Data Farmer Speed Level
         document.getElementById('dFarmerUpgradeLevelText').innerText = `Data Farmer Upgrade Level : ${gameState.dFarmerUpgradeLevel - 1} / 10`; // Update Data Farmer Upgrade Level
         if (gameState.dFarmerSpeedLevel < 11 && gameState.dFarmers > 0) {
-            document.getElementById('dFarmerSpeedUpgrade-btn').innerText = `Increase Speed : x${dFarmerSpeedNextUpgradeAmnt} | Cost : ${formatCash(dFarmerSpeedNextUpgradeCost)}`; // Update Data Farmer Speed Upgrade Cost
+            document.getElementById('dFarmerSpeedUpgrade-btn').innerText = `Increase Speed : x ${dFarmerSpeedNextUpgradeAmnt} | Cost : ${formatCash(dFarmerSpeedNextUpgradeCost)}`; // Update Data Farmer Speed Upgrade Cost
         } else if (gameState.dFarmers === 0) {
             document.getElementById('dFarmerSpeedUpgrade-btn').innerText = `Buy Data Farmers to Enable Upgrades!`; // No dFarmer Case
         } else {
             document.getElementById('dFarmerSpeedUpgrade-btn').innerText = `Max Speed`; // Maxxed Out
         }
         if (gameState.dFarmerUpgradeLevel < 11 && gameState.dFarmers > 0) {
-            document.getElementById('dFarmerLevelUpgrade-btn').innerText = `Bytes per tick : +${formatBytes(dFarmerLevelNextUpgradeAmnt)} Cost : ${formatCash(dFarmerLevelNextUpgradeCost)}`; // Update Data Farmer Level Upgrade Cost
+            document.getElementById('dFarmerLevelUpgrade-btn').innerText = `Bytes per tick : + ${formatBytes(dFarmerLevelNextUpgradeAmnt)} | Cost : ${formatCash(dFarmerLevelNextUpgradeCost)}`; // Update Data Farmer Level Upgrade Cost
         } else if (gameState.dFarmers === 0) {
             document.getElementById('dFarmerLevelUpgrade-btn').innerText = `Buy Data Farmers to Enable Upgrades!`; // No dFarmer Case
         } else {
             document.getElementById('dFarmerLevelUpgrade-btn').innerText = `Max Bytes Per Tick`; // Maxxed out
+        }
+
+        // Collect Button Upgrade Text
+        document.getElementById('collectButtonLevelText').innerText = `Data Collection Level : ${gameState.collectDataUpgradeLevel - 1} / 10`;
+        if (gameState.collectDataUpgradeLevel < 11) {
+            document.getElementById('collectButtonUpgrade-btn').innerText = `Upgrade Collection : +${formatBytes(collectDataNextUpgradeAmnt)} | Cost : ${formatCash(collectDataNextUpgradeCost)}`;
+        } else {
+            document.getElementById('collectButtonUpgrade-btn').innerText = `Max Data Collection`;
         }
     }
 
@@ -403,6 +444,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
         saveGame();
         window.location.href = "index.html";
     });
+
+    function introModal() {
+        pauseGame();
+        document.getElementById('introModal').style.display = "block";
+    }
 
 });
 
