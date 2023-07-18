@@ -4,11 +4,16 @@ A Personal Project
 
 Dev Notes:
 
-Work out of root, Hook to docs
+**Work out of root, Git Hook copy to docs (pre-commit)**
 
-- Rework Data Farmer Purchased to be a text box to input amount, show cost, and buy button with a +/-
-- Speed Upgrade Costs need adjusted
 
-Considered Features, module by module:
+**Current Bugs:**
 
+- Undefined when dFarmer number will cost over X Trillion
+- Buying dFarmer not adjusting bytesPerTick
+
+**Goals:**
+-Mass Rebalance sometime
+
+**Future Features:**
 -Security, some sort of VPN and databasing system. Attach this to a chance to be arrested or shut down

@@ -1,6 +1,7 @@
 ﻿/* Styling for all HTML elements */
 html {
     background-color: #333;
+    color: #fff;
 }
 
 body {
@@ -41,7 +42,6 @@ body {
     }
 
 .std-btn {
-    color: #fff;
     background-color: #59626c;
     border: 1px solid #fff;
     border-radius: 5px;
@@ -55,6 +55,12 @@ body {
 
 .std-btn:active {
     background-color: #808080;
+}
+
+.std-btn:disabled {
+    background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
 }
 
 .modal {
@@ -130,25 +136,15 @@ body {
     font-size: 1em;
 }
 
-#dFarmerSpeedUpgrade-btn:disabled,
-#dFarmerLevelUpgrade-btn:disabled {
-    background-color: #cccccc;
-    color: #666666;
-    cursor: not-allowed;
-}
-
 #dFarmerSpeedLevelText {
     margin-top: 10px;
-    color: #fff;
 }
 #dFarmerUpgradeLevelText {
     margin-top: 15px;
-    color: #fff;
 }
 
 #collectButtonLevelText {
     margin-top: 10px;
-    color: #fff;
 }
 
 #collectButtonUpgrade-btn {
@@ -178,7 +174,6 @@ body {
 
 #expText {
     font-size: .8em;
-    color: #fff;
 }
 
 #levelText {
@@ -187,17 +182,14 @@ body {
 
 #farmGenerationText {
     font-size: .6em;
-    color: #fff;
 }
 
 #farmGeneration {
     font-size: .6em;
-    color: #fff;
 }
 
 #bCounter {
     font-size: 2em;
-    color: #fff;
 }
 
 #cashCounter {
@@ -227,7 +219,6 @@ body {
 }
 
 #userNameDisplay {
-    color: #fff;
     padding-top: 15px;
     padding-right: 40px;
 }
@@ -237,55 +228,64 @@ body {
 /* -------------------------------------------------------------------------------------------------------------------------------------- */
 #dFarmers {
     display: flex;
+    flex-direction: column;
     background-color: #111317;
     align-items: center;
-    justify-content: space-between;
-    padding: 10px;
     border: 1px solid #59626c;
-    width: 490px;
-    height: 90px;
-    margin-left: 5px;
-}
-
-#dFarmerButtons {
-    justify-content:right;
+    width: 350px;
+    height: 320px;
+    gap: 10px;
 }
 
 #dataFarmerText {
     line-height: 50px;
     font-size: 1em;
-    color: #fff;
-    margin: 0;
-    margin-right: 20px;
+    padding-left: 15px;
+    padding-top: 20px;
 }
 
-#buyDFarmer1-btn {
-    width: 50px;
-    height: 30px;
+#dFarmerTotal {
+}
+
+#dataFarmerBuyText {
+    padding-top: 50px;
+}
+
+#dFarmerInputCost {
+    display: flex;
+    padding-left: 10px;
+}
+
+#dFarmerQuantityInput {
+    background-color: #59626c;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    text-align: center;
+    padding-left:15px;
+    width: 100px;
+    height: 50px;
     margin-left: 5px;
 }
 
-#buyDFarmer10-btn {
-    width: 50px;
-    height: 30px;
-    margin-left: 5px;
+#dataFarmerCostText {
+    padding-left: 15px;
+    padding-top: 15px;
+    color: #17811d;
 }
 
-#buyDFarmer100-btn {
-    width: 50px;
-    height: 30px;
-    margin-left: 5px;
+#dFarmerBuy-btn {
+    width: 200px;
+    font-size: 1em;
+    height: 50px;
+    margin-left : 15px;
 }
-
 /* Leveling */
 #levelUpModalHeader {
     font-size: 1.5em;
-    color: #fff;
     margin: 0;
 }
 
 #introModalHeader {
     font-size: 1.5em;
-    color: #fff;
     margin: 0;
 }

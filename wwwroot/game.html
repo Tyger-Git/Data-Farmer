@@ -39,13 +39,14 @@
         </div>
     </div>
     <div id="dFarmers">
-        <div class="vertical-align">
+        <div class="dataFarmerContainer">
             <p id="dataFarmerText">Freelance Data Farmers : <span id="dFarmerTotal"></span></p>
-        </div>
-        <div id="dFarmerButtons">
-            <button id="buyDFarmer1-btn" class="std-btn">+1</button>
-            <button id="buyDFarmer10-btn" class="std-btn">+10</button>
-            <button id="buyDFarmer100-btn" class="std-btn">+100</button>
+            <p id="dataFarmerBuyText">Purchase additional data farmers: </p>
+            <div id="dFarmerInputCost">
+                <input id="dFarmerQuantityInput" type="number" value="0" min="0" class="std-input" />
+                <p id="dataFarmerCostText"></p>
+            </div>
+            <button id="dFarmerBuy-btn" class="std-btn">Buy</button>
         </div>
     </div>
     <!--Leveling Stuff-->
