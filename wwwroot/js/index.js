@@ -124,3 +124,5 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }
     }
 });
+
+            //End of index.js
