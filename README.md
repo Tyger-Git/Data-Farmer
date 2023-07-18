@@ -4,6 +4,8 @@ A Personal Project
 
 Dev Notes:
 
+Work out of root, Hook to docs
+
 - Rework Data Farmer Purchased to be a text box to input amount, show cost, and buy button with a +/-
 - Speed Upgrade Costs need adjusted
 
