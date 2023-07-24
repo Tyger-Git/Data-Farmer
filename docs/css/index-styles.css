@@ -75,6 +75,7 @@ body.modal-open {
     max-height: 90vh; /* Adjust this value as necessary */
     overflow-y: auto; /* Enable vertical scrolling */
     text-align: center;
+    color: white;
 }
 
     .modal-content.in {

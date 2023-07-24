@@ -148,6 +148,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         document.getElementById('dFarmerQuantityInput').value = 0;
         dFarmerTotalCost = calculatedFarmerCost(document.getElementById('dFarmerQuantityInput').value);
         document.getElementById('dataFarmerCostText').textContent = `${formatCash(dFarmerTotalCost)}`;
+        autoGenPerSec = calculateAutoGenPerSec(); // ReCalc Auto Gen
         updateAll();
         saveGame();
     });
