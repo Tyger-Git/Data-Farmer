@@ -17,3 +17,9 @@ Dev Notes:
 
 **Future Features:**
 -Security, some sort of VPN and databasing system. Attach this to a chance to be arrested or shut down
+-Fluxuating costs
+-Marketing module ( pay x per tick to increase sales)
+-Add a console to spit out milestones
+-BitCoin mining module
+ 
+ Upgrade token @ certain byte amounts - Display total Bytes generated
