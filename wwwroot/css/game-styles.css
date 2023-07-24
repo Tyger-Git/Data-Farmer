@@ -11,6 +11,8 @@ body {
     padding-left: 20px;
     margin: 0;
     font-family: Arial, sans-serif;
+    background-color: #333;
+    color: #fff;
 }
 
 /* Animations */
@@ -27,6 +29,9 @@ body {
 
 /* Classes */
 /* -------------------------------------------------------------------------------------------------------------------------------------- */
+body.modal-open {
+    background-color: rgba(0,0,0,0.4);
+}
 
 .vertical-align {
     display: flex;
@@ -47,6 +52,7 @@ body {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
+    color: white;
 }
 
 .std-btn:hover {
@@ -72,7 +78,6 @@ body {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgb(0,0,0);
     background-color: rgba(0,0,0,0.4);
 }
 
@@ -81,12 +86,13 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #fefefe;
+    background-color: #333;
     padding: 20px;
     border: 1px solid #888;
     width: 30%;
     animation: slideUp 0.5s ease-out;
     text-align: center;
+    color: white;
 }
 
 .upgradeDiv {
@@ -96,6 +102,12 @@ body {
     border: 1px solid #59626c;
     width: 500px;
     height: 220px;
+}
+
+.boldHeader {
+    font-weight: bold;
+    font-size: 1.5em;
+    color: #fff;
 }
 
 
