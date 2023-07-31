@@ -1,5 +1,8 @@
 {
   "dependencies": {
     "chart.js": "^4.3.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.46.0"
   }
 }
